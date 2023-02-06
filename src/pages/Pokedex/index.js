@@ -1,7 +1,9 @@
 import { useState } from 'react';
-import { Container, ContainerHeader } from './styles';
+import { Container, ContainerHeader, FavoritesContainer } from './styles';
 
 import pikachu from '../../assets/images/pikachu.png';
+import FavoritesCarousel from '../../components/FavoritesCarousel';
+import FavoritesItems from '../../components/FavoritesItems';
 
 export default function Pokedex() {
   const [aas] = useState(localStorage.getItem('name'));
@@ -23,6 +25,11 @@ export default function Pokedex() {
           Just click in  &quot;more info&quot; button.
         </p>
       </ContainerHeader>
+      <FavoritesContainer>
+        <FavoritesCarousel currentPosition={0}>
+          <FavoritesItems />
+        </FavoritesCarousel>
+      </FavoritesContainer>
       <button type="button" onClick={set}>asd</button>
       <button type="button" onClick={del}>del</button>
       <button type="button" onClick={del}>{aas}</button>

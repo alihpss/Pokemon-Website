@@ -46,3 +46,10 @@ export const ContainerHeader = styled.header`
         z-index: -1;
     }
 `;
+
+export const FavoritesContainer = styled.div`
+    width: 75vw;
+    max-width: 900px;
+    background-color: aquamarine;
+    margin: 0 auto
+`;
