@@ -28,6 +28,12 @@ export default function FavoritesItems({ idFavoritePokemon }) {
     <Container idFavoritePokemon={idFavoritePokemon}>
       <p>{pokemon.name}</p>
       <img src={pokemon.image} alt="Pokemon" />
+      <br />
+      <p>{pokemon.name}</p>
+      <br />
+      <p>{pokemon.name}</p>
+      <br />
+      <p>{pokemon.name}</p>
     </Container>
   );
 }

@@ -3,6 +3,11 @@ import styled from 'styled-components';
 export const Container = styled.div`
     background: #ababab;
 
+    h1 {
+        margin: 9rem auto 2rem auto;
+        color: ${({ theme }) => theme.colors.background};
+        text-align: center;
+    }
 `;
 
 export const ContainerHeader = styled.header`
@@ -50,6 +55,6 @@ export const ContainerHeader = styled.header`
 export const FavoritesContainer = styled.div`
     width: 75vw;
     max-width: 900px;
-    background-color: aquamarine;
+    background-color: transparent;
     margin: 0 auto
 `;

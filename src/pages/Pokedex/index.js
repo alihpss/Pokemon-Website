@@ -25,6 +25,7 @@ export default function Pokedex() {
           Just click in  &quot;more info&quot; button.
         </p>
       </ContainerHeader>
+      <h1>Your favorite Pokemon&apos;s</h1>
       <FavoritesContainer>
         <FavoritesCarousel currentPosition={0}>
           <FavoritesItems idFavoritePokemon={1} />
