@@ -27,7 +27,13 @@ export default function Pokedex() {
       </ContainerHeader>
       <FavoritesContainer>
         <FavoritesCarousel currentPosition={0}>
-          <FavoritesItems />
+          <FavoritesItems idFavoritePokemon={1} />
+          <FavoritesItems idFavoritePokemon={4} />
+          <FavoritesItems idFavoritePokemon={8} />
+          <FavoritesItems idFavoritePokemon={25} />
+          <FavoritesItems idFavoritePokemon={25} />
+          <FavoritesItems idFavoritePokemon={25} />
+          <FavoritesItems idFavoritePokemon={8} />
         </FavoritesCarousel>
       </FavoritesContainer>
       <button type="button" onClick={set}>asd</button>
