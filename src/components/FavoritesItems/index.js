@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Container } from './styles';
@@ -26,14 +27,21 @@ export default function FavoritesItems({ idFavoritePokemon }) {
 
   return (
     <Container idFavoritePokemon={idFavoritePokemon}>
-      <p>{pokemon.name}</p>
-      <img src={pokemon.image} alt="Pokemon" />
-      <br />
-      <p>{pokemon.name}</p>
-      <br />
-      <p>{pokemon.name}</p>
-      <br />
-      <p>{pokemon.name}</p>
+      <div id="imageContainer">
+        <img src={pokemon.image} alt="Pokemon" />
+      </div>
+      <div id="nameAndIdContainer">
+        <p>{pokemon.name}</p>
+        <span>
+          {Number(pokemon.id) < 10 ? '#00' : (Number(pokemon.id) < 100 ? '#0' : '#')}
+          {pokemon.id}
+        </span>
+      </div>
+      <div id="typesContainer">
+        <p>{pokemon.name}</p>
+        <p>{pokemon.id}</p>
+      </div>
+
     </Container>
   );
 }

@@ -13,8 +13,38 @@ export const Container = styled.div`
         margin-left: 1.5rem;
     }
 
-    img {
-        width: 70%;
+    #imageContainer {
+        background-color: #09efef;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px 10px 0 0;
+        padding-bottom: 0.8rem;
+
+        img {
+            width: 65%;
+        }
     }
+
+    #nameAndIdContainer {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+        margin-top: 1rem;
+        position: relative;
+
+        p {
+            font-size: 24px;
+            text-transform: capitalize;
+            font-weight: bold;
+        }
+
+        span {
+            position: absolute;
+            right: 0.4rem;
+        }
+    }
+
 
 `;

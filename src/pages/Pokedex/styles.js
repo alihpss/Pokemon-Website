@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-    background: #ababab;
+    background: ${({ theme }) => theme.colors.pokedexBackground};
 
     h1 {
         margin: 9rem auto 2rem auto;
@@ -46,7 +46,7 @@ export const ContainerHeader = styled.header`
         position: absolute;
         top: 0;
         width: 100%;
-        background-color: #ababab;
+        background-color: ${({ theme }) => theme.colors.pokedexBackground};
         height: 200px;
         z-index: -1;
     }
