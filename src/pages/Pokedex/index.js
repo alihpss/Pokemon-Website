@@ -33,7 +33,7 @@ export default function Pokedex() {
           <FavoritesItems idFavoritePokemon={7} />
           <FavoritesItems idFavoritePokemon={6} />
           <FavoritesItems idFavoritePokemon={25} />
-          <FavoritesItems idFavoritePokemon={25} />
+          <FavoritesItems idFavoritePokemon={3} />
           <FavoritesItems idFavoritePokemon={880} />
         </FavoritesCarousel>
       </FavoritesContainer>

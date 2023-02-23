@@ -1,6 +1,6 @@
 export default {
   colors: {
     background: '#f6f5fc',
-    pokedexBackground: '#ababab',
+    pokedexBackground: '#34495e',
   },
 };

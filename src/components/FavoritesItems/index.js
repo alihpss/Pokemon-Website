@@ -1,21 +1,17 @@
 /* eslint-disable no-nested-ternary */
 import { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Container } from './styles';
+import { Container, TypesItem } from './styles';
+import exportTypeIcons from '../../utils/exportTypeIcons';
 
 export default function FavoritesItems({ idFavoritePokemon }) {
-  const [pokemon, setPokemon] = useState({});
+  const [pokemon, setPokemon] = useState([]);
 
   const favoritePokemonInformation = useCallback(async () => {
     try {
       const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${idFavoritePokemon}/`);
       const toJson = await data.json();
-
-      setPokemon({
-        name: toJson.name,
-        id: toJson.id,
-        image: toJson.sprites.other.home.front_default,
-      });
+      setPokemon(toJson);
     } catch (error) {
       console.log(error);
     }
@@ -25,10 +21,12 @@ export default function FavoritesItems({ idFavoritePokemon }) {
     favoritePokemonInformation();
   }, [favoritePokemonInformation]);
 
+  console.log(pokemon.types);
+
   return (
     <Container idFavoritePokemon={idFavoritePokemon}>
       <div id="imageContainer">
-        <img src={pokemon.image} alt="Pokemon" />
+        <img src={pokemon.sprites?.other.home.front_default} alt="Pokemon" />
       </div>
       <div id="nameAndIdContainer">
         <p>{pokemon.name}</p>
@@ -38,8 +36,12 @@ export default function FavoritesItems({ idFavoritePokemon }) {
         </span>
       </div>
       <div id="typesContainer">
-        <p>{pokemon.name}</p>
-        <p>{pokemon.id}</p>
+        {pokemon.types?.map((type) => (
+          <TypesItem>
+            <img src={exportTypeIcons[type.type.name]} alt={type.type.name} />
+            <p>{type.type.name}</p>
+          </TypesItem>
+        ))}
       </div>
 
     </Container>
