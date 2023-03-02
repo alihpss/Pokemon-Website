@@ -1,13 +1,16 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+
 import grass from '../../assets/images/background-types/grass.svg';
 
 export const Container = styled.div`
     min-width: 280px;
-    background: linear-gradient(0deg, rgba(45,180,45,0.3706896551724138) 0%, rgba(45,180,45,0.8793103448275862) 29%);
     border-radius: 16px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    ${({ type, theme }) => type && css`
+        background: linear-gradient(0deg, ${theme.typeColors[type]} 10%, ${theme.secondaryColors[type]} 29%);
+    `}
 
 
     & + & {
