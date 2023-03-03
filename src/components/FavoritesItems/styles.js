@@ -4,7 +4,8 @@ import grass from '../../assets/images/background-types/grass.svg';
 
 export const Container = styled.div`
     min-width: 280px;
-    border-radius: 16px;
+    max-width: 312px;
+    border-radius: 21px;
     display: flex;
     flex-direction: column;
     align-items: center;

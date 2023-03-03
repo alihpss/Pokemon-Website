@@ -21,8 +21,6 @@ export default function FavoritesItems({ idFavoritePokemon }) {
     favoritePokemonInformation();
   }, [favoritePokemonInformation]);
 
-  console.log(pokemon.types);
-
   return (
     <Container
       idFavoritePokemon={idFavoritePokemon}
