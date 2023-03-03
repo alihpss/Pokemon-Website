@@ -5,7 +5,7 @@ import { CarouselContainer, Container } from './styles';
 import chevron from '../../assets/images/icons/chevron-left.svg';
 import chevronRigth from '../../assets/images/icons/chevron-right.svg';
 
-export default function FavoritesCarousel({ children }) {
+export default function FavoritesCarousel({ children, justifyContent }) {
   const carousel = useRef(null);
 
   function handleChangePositionToRight(e) {
@@ -21,7 +21,7 @@ export default function FavoritesCarousel({ children }) {
   return (
     <Container>
       <button type="button" onClick={handleChangePositionToRight}><img src={chevron} alt="Seta para esquerda" /></button>
-      <CarouselContainer ref={carousel}>
+      <CarouselContainer ref={carousel} justifyContent={justifyContent}>
         {children}
       </CarouselContainer>
       <button type="button" onClick={handleChangePositionToLeft}><img src={chevronRigth} alt="Seta para direita" /></button>
@@ -31,4 +31,9 @@ export default function FavoritesCarousel({ children }) {
 
 FavoritesCarousel.propTypes = {
   children: PropTypes.node.isRequired,
+  justifyContent: PropTypes.string,
+};
+
+FavoritesCarousel.defaultProps = {
+  justifyContent: '',
 };

@@ -38,7 +38,7 @@ export default function FavoritesItems({ idFavoritePokemon }) {
       </div>
       <div id="typesContainer">
         {pokemon.types?.map((type) => (
-          <TypesItem key={Math.random()}>
+          <TypesItem key={Math.random()} firstTypeName={type.type.name}>
             <img src={exportTypeIcons[type.type.name]} alt={type.type.name} />
             <p>{type.type.name}</p>
           </TypesItem>

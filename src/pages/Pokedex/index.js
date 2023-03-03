@@ -6,6 +6,7 @@ import FavoritesCarousel from '../../components/FavoritesCarousel';
 import FavoritesItems from '../../components/FavoritesItems';
 
 export default function Pokedex() {
+  const teste = [57, 48];
   const [aas] = useState(localStorage.getItem('name'));
   function set() {
     localStorage.setItem('name', 'Ali');
@@ -27,10 +28,15 @@ export default function Pokedex() {
       </ContainerHeader>
       <h1>Your favorite Pokemon&apos;s</h1>
       <FavoritesContainer>
-        <FavoritesCarousel>
-          <FavoritesItems idFavoritePokemon={1} />
-          <FavoritesItems idFavoritePokemon={4} />
-          <FavoritesItems idFavoritePokemon={4} />
+        <FavoritesCarousel
+          justifyContent={teste.length > 2 ? '' : 'center'}
+        >
+          {teste.map((pokemonId) => (
+            <FavoritesItems
+              key={pokemonId}
+              idFavoritePokemon={pokemonId}
+            />
+          ))}
         </FavoritesCarousel>
       </FavoritesContainer>
       <button type="button" onClick={set}>asd</button>

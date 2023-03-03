@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-import grass from '../../assets/images/background-types/grass.svg';
+import exportTypeBackgroundImages from '../../utils/exportBackgroundTypeImages';
 
 export const Container = styled.div`
     min-width: 280px;
@@ -10,7 +10,7 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: center;
     ${({ type, theme }) => type && css`
-        background: linear-gradient(0deg, ${theme.typeColors[type]} 10%, ${theme.secondaryColors[type]} 29%);
+        background: linear-gradient(0deg, ${theme.secondaryColors[type]} 10%, ${theme.typeColors[type]} 29%);
     `}
 
 
@@ -19,7 +19,6 @@ export const Container = styled.div`
     }
 
     #imageContainer {
-        background-image: url(${grass});
         background-repeat: no-repeat;
         background-size: cover;
         display: flex;
@@ -31,8 +30,11 @@ export const Container = styled.div`
         img {
             width: 65%;
             position: relative;
-            bottom: 1rem;
         }
+
+        ${({ type }) => css`
+            background-image: url(${exportTypeBackgroundImages[type]})};
+        `}
     }
 
     #nameAndIdContainer {
@@ -72,9 +74,11 @@ export const TypesItem = styled.div`
     display: flex;
     padding: 8px 6px;
     border-radius: 12px;
-    background-color: green;
     align-items: center;
     margin-top: 8px;
+    ${({ firstTypeName, theme }) => firstTypeName && css`
+        background: ${theme.typeColors[firstTypeName]};
+    `}
 
     p {
         text-transform: uppercase;

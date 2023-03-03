@@ -31,6 +31,7 @@ export const CarouselContainer = styled.div`
     display: flex;
     overflow-x: auto;
     scroll-behavior: smooth;
+    justify-content: ${({ justifyContent }) => (justifyContent === 'center' ? 'center' : '')};
 
     &::-webkit-scrollbar {
         display: none;
