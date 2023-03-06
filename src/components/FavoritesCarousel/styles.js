@@ -4,17 +4,19 @@ export const Container = styled.div`
     display: flex;
     position: relative;
     align-items: center;
+    justify-content: ${({ justifyContent }) => (justifyContent === 'center' ? 'center' : 'flex-start')};
 
     button {
         background: none;
         border: none;
         position: absolute;
         top: 50%;
-        scale: 6;
+        scale: 3.3;
 
         &:hover {
-            scale: 6.2;
+            scale: 3.5;
         }
+
     }
 
     button:first-child {
@@ -31,7 +33,6 @@ export const CarouselContainer = styled.div`
     display: flex;
     overflow-x: auto;
     scroll-behavior: smooth;
-    justify-content: ${({ justifyContent }) => (justifyContent === 'center' ? 'center' : '')};
 
     &::-webkit-scrollbar {
         display: none;

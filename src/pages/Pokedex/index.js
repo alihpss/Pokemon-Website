@@ -29,7 +29,7 @@ export default function Pokedex() {
       <h1>Your favorite Pokemon&apos;s</h1>
       <FavoritesContainer>
         <FavoritesCarousel
-          justifyContent={teste.length > 2 ? '' : 'center'}
+          justifyContent={teste.length <= 2 ? 'center' : 'flex-start'}
         >
           {teste.map((pokemonId) => (
             <FavoritesItems

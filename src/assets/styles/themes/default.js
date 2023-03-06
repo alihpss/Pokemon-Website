@@ -1,7 +1,9 @@
 export default {
   colors: {
     background: '#f6f5fc',
-    pokedexBackground: '#34495e',
+    pokedexBackground: '#ffcd68 ',
+    dark: '#000',
+    light: '#F8F8F8',
   },
   typeColors: {
     bug: 'rgba(133, 194, 40,0.8)',
