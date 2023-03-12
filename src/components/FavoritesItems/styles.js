@@ -9,6 +9,7 @@ export const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-shadow:  0px -0px 40px -16px rgb(0,0,0,0.75);
     ${({ type, theme }) => type && css`
         background: linear-gradient(0deg, ${theme.secondaryColors[type]} 10%, ${theme.typeColors[type]} 29%);
     `}

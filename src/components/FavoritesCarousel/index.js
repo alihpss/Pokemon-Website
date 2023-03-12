@@ -35,5 +35,5 @@ FavoritesCarousel.propTypes = {
 };
 
 FavoritesCarousel.defaultProps = {
-  justifyContent: '',
+  justifyContent: 'flex-start ',
 };
