@@ -1,7 +1,9 @@
 /* eslint-disable no-nested-ternary */
 import { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { Container, TypesItem } from './styles';
+import {
+  Container, ImageContainer, NameAndIdContainer, StatsContainer, TypesContainer, TypesItem,
+} from './styles';
 import exportTypeIcons from '../../utils/exportTypeIcons';
 
 export default function FavoritesItems({ idFavoritePokemon }) {
@@ -23,27 +25,38 @@ export default function FavoritesItems({ idFavoritePokemon }) {
 
   return (
     <Container
-      idFavoritePokemon={idFavoritePokemon}
       type={pokemon.types && (pokemon.types[0].type.name)}
+      idFavoritePokemon={idFavoritePokemon}
     >
-      <div id="imageContainer">
+      <ImageContainer type={pokemon.types && (pokemon.types[0].type.name)}>
         <img src={pokemon.sprites?.other.home.front_default} alt="Pokemon" />
-      </div>
-      <div id="nameAndIdContainer">
+      </ImageContainer>
+
+      <NameAndIdContainer>
         <p>{pokemon.name}</p>
         <span>
           {Number(pokemon.id) < 10 ? '#00' : (Number(pokemon.id) < 100 ? '#0' : '#')}
           {pokemon.id}
         </span>
-      </div>
-      <div id="typesContainer">
+      </NameAndIdContainer>
+
+      <StatsContainer>
+        {pokemon.stats?.map((stat) => (
+          <>
+            <p>{stat.stat.name}</p>
+            <span>{stat.base_stat}</span>
+          </>
+        ))}
+      </StatsContainer>
+
+      <TypesContainer>
         {pokemon.types?.map((type) => (
           <TypesItem key={Math.random()} firstTypeName={type.type.name}>
             <img src={exportTypeIcons[type.type.name]} alt={type.type.name} />
             <p>{type.type.name}</p>
           </TypesItem>
         ))}
-      </div>
+      </TypesContainer>
 
     </Container>
   );

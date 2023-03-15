@@ -4,71 +4,56 @@ import exportTypeBackgroundImages from '../../utils/exportBackgroundTypeImages';
 
 export const Container = styled.div`
     min-width: 280px;
+    margin-right: 1rem;
     max-width: 312px;
     border-radius: 21px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-shadow:  0px -0px 40px -16px rgb(0,0,0,0.75);
+    box-shadow: 0px 0px 17px -6px rgb(0,0,0,0.75);
     ${({ type, theme }) => type && css`
         background: linear-gradient(0deg, ${theme.secondaryColors[type]} 10%, ${theme.typeColors[type]} 29%);
     `}
 
 
     & + & {
-        margin-left: 2rem;
+        margin-left: 1rem;
     }
 
-    #imageContainer {
-        background-repeat: no-repeat;
-        background-size: cover;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 10px 10px 0 0;
-        padding-bottom: 0.8rem;
+`;
 
-        img {
-            width: 65%;
-            position: relative;
-        }
+export const NameAndIdContainer = styled.div`
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    position: relative;
 
-        ${({ type }) => css`
-            background-image: url(${exportTypeBackgroundImages[type]})};
-        `}
+    p {
+        font-size: 24px;
+        text-transform: capitalize;
+        font-weight: bold;
+        color: ${({ theme }) => theme.colors.background};
     }
 
-    #nameAndIdContainer {
-        display: flex;
-        width: 100%;
-        justify-content: center;
-        align-items: center;
-        margin-top: 1rem;
-        position: relative;
-
-        p {
-            font-size: 24px;
-            text-transform: capitalize;
-            font-weight: bold;
-            color: ${({ theme }) => theme.colors.background};
-        }
-
-        span {
-            position: absolute;
-            right: 0.4rem;
-            color: ${({ theme }) => theme.colors.background};
-        }
+    span {
+        position: absolute;
+        right: 0.4rem;
+        color: ${({ theme }) => theme.colors.background};
     }
+`;
 
-    #typesContainer {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 0.5rem;
-        margin-top: 18px;
-    }
+export const StatsContainer = styled.div`
+    
+`;
 
-
+export const TypesContainer = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 18px;
 `;
 
 export const TypesItem = styled.div`
@@ -92,4 +77,25 @@ export const TypesItem = styled.div`
     img {
         width: 16px;
     }
+`;
+
+export const ImageContainer = styled.div`
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px 10px 0 0;
+    padding-bottom: 0.8rem;
+
+    img {
+        width: 65%;
+        position: relative;
+    }
+
+    ${({ type }) => css`
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-image: url(${exportTypeBackgroundImages[type]})};
+    `}
 `;

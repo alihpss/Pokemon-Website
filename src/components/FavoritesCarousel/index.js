@@ -19,7 +19,7 @@ export default function FavoritesCarousel({ children, justifyContent }) {
   }
 
   return (
-    <Container>
+    <Container justifyContent={justifyContent}>
       <button type="button" onClick={handleChangePositionToRight}><img src={chevron} alt="Seta para esquerda" /></button>
       <CarouselContainer ref={carousel} justifyContent={justifyContent}>
         {children}
@@ -35,5 +35,5 @@ FavoritesCarousel.propTypes = {
 };
 
 FavoritesCarousel.defaultProps = {
-  justifyContent: 'flex-start ',
+  justifyContent: 'flex-start',
 };

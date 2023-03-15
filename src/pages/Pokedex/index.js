@@ -6,7 +6,7 @@ import FavoritesCarousel from '../../components/FavoritesCarousel';
 import FavoritesItems from '../../components/FavoritesItems';
 
 export default function Pokedex() {
-  const teste = [57, 48];
+  const teste = [25, 222, 3];
   const [aas] = useState(localStorage.getItem('name'));
   function set() {
     localStorage.setItem('name', 'Ali');
