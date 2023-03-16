@@ -41,11 +41,20 @@ export default function FavoritesItems({ idFavoritePokemon }) {
       </NameAndIdContainer>
 
       <StatsContainer>
-        {pokemon.stats?.map((stat) => (
-          <>
+        {pokemon.stats?.slice(0, 3).map((stat) => (
+          <div>
             <p>{stat.stat.name}</p>
-            <span>{stat.base_stat}</span>
-          </>
+            <div className="statsBar">
+              <div style={{ width: `${stat.base_stat}%` }}>
+                <ul>
+                  <li />
+                  <li />
+                  <li />
+                  <li />
+                </ul>
+              </div>
+            </div>
+          </div>
         ))}
       </StatsContainer>
 

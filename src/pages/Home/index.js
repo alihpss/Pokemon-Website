@@ -20,8 +20,8 @@ import useCarrouselHome from './useCarrouselHome';
 export default function Home() {
   const carrouselInformation = [
     { image: squirtle, color: '#6797FA', id: 0 },
-    { image: cubone, color: '#d73f3f', id: 1 },
-    { image: charmander, color: '#6f7777', id: 2 },
+    { image: cubone, color: '#9f7ac5', id: 1 },
+    { image: charmander, color: '#1c1c1c', id: 2 },
   ];
 
   const {
@@ -72,9 +72,11 @@ export default function Home() {
             is a Japanese media franchise managed by the Pokemon Company,
             a company founded by Nintendo.
           </p>
-          <button type="button" style={{ backgroundColor: newBackgroundColor }}>
-            <Link to="/pokedex">Go to Pokedex</Link>
-          </button>
+          <Link to="/pokedex">
+            <button type="button" style={{ backgroundColor: newBackgroundColor }}>
+              Go to Pokedex
+            </button>
+          </Link>
         </TextContainer>
 
         <ImagesLeftContentContainer>

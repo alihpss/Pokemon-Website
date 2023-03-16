@@ -63,6 +63,7 @@ export const TextContainer = styled.div`
         box-shadow: 1px 0px 8px -1px rgba(0,0,0,0.4);
         font-weight: 600;
         transition: all 0.4s ease-in-out;
+        color: #FFF;
 
         &:hover {
             box-shadow: 1px 0px 8px -1px rgba(0,0,0,0.8);
@@ -70,10 +71,6 @@ export const TextContainer = styled.div`
 
         &:active {
             opacity: 0.8;
-        }
-
-        a {
-            color: #FFF;
         }
     }
 `;
