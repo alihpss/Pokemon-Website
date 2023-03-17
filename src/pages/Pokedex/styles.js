@@ -56,5 +56,23 @@ export const FavoritesContainer = styled.div`
     width: 75vw;
     max-width: 900px;
     background-color: transparent;
-    margin: 0 auto
+    margin: 0 auto;
+
+    .notFoundContainer {
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin:  auto;
+
+        img {
+            width: 100%;
+        }
+
+        p {
+            font-size: 15px;
+            font-weight: bolder;
+        }
+    }
 `;

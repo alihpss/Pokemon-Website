@@ -17,6 +17,10 @@ export const Container = styled.div`
             scale: 3.5;
         }
 
+        &:active {
+            scale: 2.8;
+        }
+
     }
 
     button:first-child {
