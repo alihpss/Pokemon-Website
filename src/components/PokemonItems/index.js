@@ -5,8 +5,9 @@ import {
   Container, ImageContainer, NameAndIdContainer, StatsContainer, TypesContainer, TypesItem,
 } from './styles';
 import exportTypeIcons from '../../utils/exportTypeIcons';
+import MoreInfoButton from '../MoreInfoButton';
 
-export default function FavoritesItems({ idFavoritePokemon }) {
+export default function PokemonItems({ idFavoritePokemon }) {
   const [pokemon, setPokemon] = useState([]);
 
   const favoritePokemonInformation = useCallback(async () => {
@@ -42,7 +43,7 @@ export default function FavoritesItems({ idFavoritePokemon }) {
 
       <StatsContainer>
         {pokemon.stats?.slice(0, 3).map((stat) => (
-          <div>
+          <div key={stat.stat.name}>
             <p>{stat.stat.name}</p>
             <div className="statsBar">
               <div style={{ width: `${stat.base_stat}%` }}>
@@ -60,17 +61,24 @@ export default function FavoritesItems({ idFavoritePokemon }) {
 
       <TypesContainer>
         {pokemon.types?.map((type) => (
-          <TypesItem key={Math.random()} firstTypeName={type.type.name}>
+          <TypesItem key={type.type.name} firstTypeName={type.type.name}>
             <img src={exportTypeIcons[type.type.name]} alt={type.type.name} />
             <p>{type.type.name}</p>
           </TypesItem>
         ))}
       </TypesContainer>
 
+      {pokemon.types && (
+      <MoreInfoButton
+        idPokemon={idFavoritePokemon}
+        pokemonType={pokemon.types[0].type.name}
+      />
+      )}
+
     </Container>
   );
 }
 
-FavoritesItems.propTypes = {
+PokemonItems.propTypes = {
   idFavoritePokemon: PropTypes.number.isRequired,
 };

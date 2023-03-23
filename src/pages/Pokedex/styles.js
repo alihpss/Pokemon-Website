@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-    background: linear-gradient(180deg, ${({ theme }) => theme.colors.pokedexBackground} 35%, ${({ theme }) => theme.colors.light} 36%);
+    background: linear-gradient(180deg, ${({ theme }) => theme.colors.pokedexBackground} 42%, ${({ theme }) => theme.colors.light} 43%);
 
     h1 {
         margin: 9rem auto 2rem auto;
@@ -10,28 +10,29 @@ export const Container = styled.div`
     }
 `;
 
-export const ContainerHeader = styled.header`
+export const ContainerHeader = styled.div`
     display: flex;
     width: 70%;
-    max-width: 700px;
+    padding: 11px 0;
+    max-width: 800px;
     margin: 4rem auto 2rem auto;
     max-height: 350px;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-evenly;
     background-color: #FFCB05;
     border-radius: 10px;
-    box-shadow:  0px 0px 26px -11px rgb(0,0,0,0.75);
+    box-shadow: 0px 0px 26px -11px rgb(0,0,0,0.95);
 
     hr {
-        height: 150px;
+        height: 200px;
         background-color: ${({ theme }) => theme.colors.background};
         border: none;
         width: 1px;
     }
 
     img {
-        width: 45%;
-        max-width: 250px;
+        width: 50%;
+        max-width: 300px;
     }
 
     p {
@@ -39,6 +40,8 @@ export const ContainerHeader = styled.header`
         max-width: 300px;
         color: ${({ theme }) => theme.colors.background};
         font-weight: 500;
+        font-size: 1.5rem;
+        padding: 15px;
     }
 
     &::before {

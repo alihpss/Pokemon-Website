@@ -6,7 +6,7 @@ export const Container = styled.div`
     align-items: center;
     justify-content: ${({ justifyContent }) => (justifyContent === 'center' ? 'center' : 'flex-start')};
 
-    button {
+    .controller {
         background: none;
         border: none;
         position: absolute;
@@ -23,11 +23,11 @@ export const Container = styled.div`
 
     }
 
-    button:first-child {
+    .controller:first-child {
         left: -10%;
     }
 
-    div + button {
+    div + .controller {
         right: -10%;
         top: 50%;
     }

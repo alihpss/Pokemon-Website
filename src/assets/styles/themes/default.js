@@ -1,7 +1,7 @@
 export default {
   colors: {
     background: '#f6f5fc',
-    pokedexBackground: '#ffcd68 ',
+    pokedexBackground: '#7168ff',
     dark: '#000',
     light: '#F8F8F8',
   },

@@ -10,21 +10,21 @@ export default function FavoritesCarousel({ children, justifyContent }) {
 
   function handleChangePositionToRight(e) {
     e.preventDefault();
-    carousel.current.scrollLeft -= 312;
+    carousel.current.scrollLeft -= 360;
   }
 
   function handleChangePositionToLeft(e) {
     e.preventDefault();
-    carousel.current.scrollLeft += 312;
+    carousel.current.scrollLeft += 360;
   }
 
   return (
     <Container justifyContent={justifyContent}>
-      <button type="button" onClick={handleChangePositionToRight}><img src={chevron} alt="Seta para esquerda" /></button>
+      <button className="controller" type="button" onClick={handleChangePositionToRight}><img src={chevron} alt="Seta para esquerda" /></button>
       <CarouselContainer ref={carousel} justifyContent={justifyContent}>
         {children}
       </CarouselContainer>
-      <button type="button" onClick={handleChangePositionToLeft}><img src={chevronRigth} alt="Seta para direita" /></button>
+      <button className="controller" type="button" onClick={handleChangePositionToLeft}><img src={chevronRigth} alt="Seta para direita" /></button>
     </Container>
   );
 }

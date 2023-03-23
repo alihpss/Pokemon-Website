@@ -3,14 +3,13 @@ import styled, { css } from 'styled-components';
 import exportTypeBackgroundImages from '../../utils/exportBackgroundTypeImages';
 
 export const Container = styled.div`
-    min-width: 280px;
+    min-width: 330px;
     margin-right: 1rem;
-    max-width: 312px;
-    border-radius: 21px;
+    max-width: 350px;
+    border-radius: 23px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-bottom: 15px;
     box-shadow: 0px 0px 17px -6px rgb(0,0,0,0.75);
     ${({ type, theme }) => type && css`
         background: linear-gradient(0deg, ${theme.secondaryColors[type]} 10%, ${theme.typeColors[type]} 29%);
@@ -72,7 +71,7 @@ export const StatsContainer = styled.div`
 
         div {
             margin-top: 0;
-            background-color: rgba(255,0,0, 0.7);
+            background-color: rgba(70, 255, 63, 0.72);
             height: 10px;
         }
 
@@ -98,7 +97,6 @@ export const StatsContainer = styled.div`
 
 export const TypesContainer = styled.div`
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
     gap: 0.5rem;
     margin-top: 18px;
@@ -138,7 +136,7 @@ export const ImageContainer = styled.div`
     padding-bottom: 0.8rem;
 
     img {
-        width: 65%;
+        width: 55%;
         position: relative;
     }
 

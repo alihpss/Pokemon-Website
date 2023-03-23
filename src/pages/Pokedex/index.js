@@ -4,10 +4,10 @@ import { Container, ContainerHeader, FavoritesContainer } from './styles';
 import pikachu from '../../assets/images/pikachu.png';
 import notFound from '../../assets/images/not-Found.png';
 import FavoritesCarousel from '../../components/FavoritesCarousel';
-import FavoritesItems from '../../components/FavoritesItems';
+import PokemonItems from '../../components/PokemonItems';
 
 export default function Pokedex() {
-  const teste = [25, 222, 150];
+  const teste = [222, 824, 368, 475, 547, 268, 611];
   const [aas] = useState(localStorage.getItem('name'));
   function set() {
     localStorage.setItem('name', 'Ali');
@@ -43,7 +43,7 @@ export default function Pokedex() {
           justifyContent={teste.length <= 2 ? 'center' : 'flex-start'}
         >
           {teste.map((pokemonId) => (
-            <FavoritesItems
+            <PokemonItems
               key={pokemonId}
               idFavoritePokemon={pokemonId}
             />
