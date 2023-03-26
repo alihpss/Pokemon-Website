@@ -8,7 +8,7 @@ export const Container = styled.header`
     padding-top: 18px;
     background-color: transparent;
     position: relative;
-    z-index: 20;
+    z-index: 2;
 `;
 
 export const LogoContainer = styled.div`
