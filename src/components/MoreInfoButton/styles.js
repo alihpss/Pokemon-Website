@@ -28,11 +28,11 @@ export const StyledButton = styled.div`
         }
 
         &:hover {
-            filter: brightness(0.8);
+            filter: brightness(0.9);
         }
 
         &:active {
-            filter: brightness(0.6);
+            filter: brightness(0.7);
         }
     }
 `;

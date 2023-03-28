@@ -7,7 +7,7 @@ import FavoritesCarousel from '../../components/FavoritesCarousel';
 import PokemonItems from '../../components/PokemonItems';
 
 export default function Pokedex() {
-  const teste = [222, 824, 368, 475, 547, 268, 611];
+  const teste = [];
   const [aas] = useState(localStorage.getItem('name'));
   function set() {
     localStorage.setItem('name', 'Ali');
@@ -19,6 +19,7 @@ export default function Pokedex() {
 
   return (
     <Container>
+
       <ContainerHeader>
         <img src={pikachu} alt="Pokemon" />
         <hr />
@@ -27,8 +28,11 @@ export default function Pokedex() {
           Just click in  &quot;more info&quot; button.
         </p>
       </ContainerHeader>
+
       <h1>Your favorite Pokemon&apos;s</h1>
+
       <FavoritesContainer>
+
         {teste.length === 0 && (
         <FavoritesCarousel justifyContent="center">
           <div className="notFoundContainer">
@@ -51,6 +55,8 @@ export default function Pokedex() {
         </FavoritesCarousel>
         )}
       </FavoritesContainer>
+
+      <h2>Pokedex</h2>
       <button type="button" onClick={set}>asd</button>
       <button type="button" onClick={del}>del</button>
       <button type="button" onClick={del}>{aas}</button>
