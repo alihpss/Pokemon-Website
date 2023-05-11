@@ -21,6 +21,13 @@ export const Container = styled.div`
             scale: 2.8;
         }
 
+        &[disabled] img {
+            filter: invert(60%)
+        }
+
+        &[disabled]:hover, &[disabled]:active {
+            scale: 3.3;
+        }
     }
 
     .controller:first-child {

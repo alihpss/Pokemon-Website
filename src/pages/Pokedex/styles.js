@@ -4,9 +4,16 @@ export const Container = styled.div`
     background: linear-gradient(180deg, ${({ theme }) => theme.colors.pokedexBackground} 42%, ${({ theme }) => theme.colors.light} 43%);
 
     h1 {
-        margin: 9rem auto 2rem auto;
+        margin: 14rem auto 2rem auto;
+    }
+
+    h1, h2 {
         color: ${({ theme }) => theme.colors.dark};
         text-align: center;
+    }
+
+    h2 {
+        font-size: 2rem;
     }
 `;
 
@@ -59,7 +66,7 @@ export const FavoritesContainer = styled.div`
     width: 75vw;
     max-width: 900px;
     background-color: transparent;
-    margin: 0 auto;
+    margin: 0 auto 4rem auto;
 
     .notFoundContainer {
         width: 80%;

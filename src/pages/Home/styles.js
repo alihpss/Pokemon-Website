@@ -43,10 +43,10 @@ export const LeftContent = styled.div`
 `;
 
 export const TextContainer = styled.div`
-    margin-top: 4rem;
+    margin-top: 1rem;
 
     h1 {
-        font-size: 2.3rem;
+        font-size: 2.1rem;
     }
 
     p {
