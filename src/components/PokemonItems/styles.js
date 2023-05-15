@@ -3,8 +3,9 @@ import styled, { css } from 'styled-components';
 import exportTypeBackgroundImages from '../../utils/exportBackgroundTypeImages';
 
 export const Container = styled.div`
-    min-width: 330px;
+    min-width: 290px;
     margin-right: 1rem;
+    margin-left: 1rem;
     max-width: 350px;
     border-radius: 23px;
     display: flex;
@@ -14,11 +15,6 @@ export const Container = styled.div`
     ${({ type, theme }) => type && css`
         background: linear-gradient(0deg, ${theme.secondaryColors[type]} 10%, ${theme.typeColors[type]} 29%);
     `}
-
-
-    & + & {
-        margin-left: 1rem;
-    }
 
 `;
 
