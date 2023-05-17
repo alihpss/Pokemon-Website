@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-    background: linear-gradient(180deg, ${({ theme }) => theme.colors.pokedexBackground} 42%, ${({ theme }) => theme.colors.light} 43%);
+    background: linear-gradient(180deg, ${({ theme }) => theme.colors.pokedexBackground} 410px, ${({ theme }) => theme.colors.light} 415px);
 
     h1 {
-        margin: 14rem auto 2rem auto;
+        margin: 8rem auto 2.5rem auto;
     }
 
     h1, h2 {
@@ -19,9 +19,9 @@ export const Container = styled.div`
 
 export const ContainerHeader = styled.div`
     display: flex;
-    width: 70%;
+    width: 800px;
     padding: 11px 0;
-    max-width: 800px;
+    max-width: 95%;
     margin: 4rem auto 2rem auto;
     max-height: 350px;
     align-items: center;
@@ -83,6 +83,67 @@ export const FavoritesContainer = styled.div`
         p {
             font-size: 15px;
             font-weight: bolder;
+        }
+    }
+`;
+
+export const PokedexContainer = styled.div`
+    background-color: #949d6a;
+    padding-top: 10rem;
+
+    .filters {
+        display: flex;
+        align-items: center;
+        width: 1000px;
+        max-width: 95%;
+        justify-content: space-between;
+        margin: 3.8rem auto 0 auto;
+
+        .typesCarousel {
+            width: 40vw;
+            max-width: 250px;
+
+            div .controller + div {
+                gap: 0.6rem;
+                padding: 2px 0;
+
+                & :active {
+                    scale: 0.95;
+                }
+            }
+
+            div .controller + div div {
+                margin-top: 0;
+                box-shadow: 0px 0px 3px 0px rgb(0,0,0,0.75);
+
+                &, p {
+                    transition: all 0.2s ease-in-out;
+                }
+            }
+        }
+
+        div .controller {
+            display: flex;
+            position: relative;
+            scale: 1.4;
+            left: 0;
+            right: 0;
+
+            &:hover {
+                scale: 1.6;
+            }
+
+            &:active {
+                scale: 1;
+            }
+
+            &[disabled] img {
+                filter: invert(90%)
+            }
+
+            &[disabled]:hover, &[disabled]:active {
+                scale: 1.4;
+            }
         }
     }
 `;

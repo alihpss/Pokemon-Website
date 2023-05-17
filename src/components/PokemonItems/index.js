@@ -2,9 +2,10 @@
 import { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Container, ImageContainer, NameAndIdContainer, StatsContainer, TypesContainer, TypesItem,
+  Container, ImageContainer, NameAndIdContainer, StatsContainer, TypesContainer,
 } from './styles';
-import exportTypeIcons from '../../utils/exportTypeIcons';
+
+import TypeItems from '../TypeItems';
 import MoreInfoButton from '../MoreInfoButton';
 
 export default function PokemonItems({ idFavoritePokemon }) {
@@ -61,10 +62,7 @@ export default function PokemonItems({ idFavoritePokemon }) {
 
       <TypesContainer>
         {pokemon.types?.map((type) => (
-          <TypesItem key={type.type.name} firstTypeName={type.type.name}>
-            <img src={exportTypeIcons[type.type.name]} alt={type.type.name} />
-            <p>{type.type.name}</p>
-          </TypesItem>
+          <TypeItems key={type.type.name} typeName={type.type.name} />
         ))}
       </TypesContainer>
 

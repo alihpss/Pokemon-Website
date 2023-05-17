@@ -15,8 +15,7 @@ export default function FavoritesCarousel({ children, justifyContent }) {
     e.preventDefault();
     carousel.current.scrollLeft -= (carousel.current.childNodes[0].clientWidth + 32);
     setDisableRightArrow(false);
-
-    console.log(carousel.current.clientWidth - carousel.current.childNodes[0].getBoundingClientRect().x);
+    console.log(carousel.current.clientWidth, carousel.current.childNodes[0].getBoundingClientRect().x);
 
     if (carousel.current.clientWidth - carousel.current.childNodes[0].getBoundingClientRect().x < 650) {
       setDisableLeftArrow(true);
@@ -27,6 +26,7 @@ export default function FavoritesCarousel({ children, justifyContent }) {
     e.preventDefault();
     carousel.current.scrollLeft += (carousel.current.childNodes[0].clientWidth + 32);
     setDisableLeftArrow(false);
+    console.log(carousel.current.childNodes[carousel.current.childNodes.length - 1].getBoundingClientRect().x, carousel.current.clientWidth + carousel.current.clientWidth * 0.3);
 
     if (carousel.current.childNodes[carousel.current.childNodes.length - 1].getBoundingClientRect().x <= carousel.current.clientWidth + carousel.current.clientWidth * 0.3) {
       setDisableRightArrow(true);

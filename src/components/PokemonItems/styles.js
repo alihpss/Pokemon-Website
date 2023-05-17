@@ -96,29 +96,22 @@ export const TypesContainer = styled.div`
     justify-content: center;
     gap: 0.5rem;
     margin-top: 18px;
-`;
 
-export const TypesItem = styled.div`
-    display: flex;
-    padding: 8px 6px;
-    border-radius: 12px;
-    align-items: center;
-    margin-top: 8px;
-    box-shadow: 0px 0px 11px 0px rgb(0,0,0,0.75);
-    ${({ firstTypeName, theme }) => firstTypeName && css`
-        background: ${theme.typeColors[firstTypeName]};
-    `}
+    div {
+        padding: 8px 6px;
 
-    p {
-        text-transform: uppercase;
-        font-size: 14px;
-        font-weight: bolder;
-        color: ${({ theme }) => theme.colors.background};
-        margin-left: 4px;
-    }
+        p {
+            text-transform: uppercase;
+            font-size: 14px;
+        }
 
-    img {
-        width: 16px;
+        img {
+            width: 16px;
+        }
+
+        &:hover {
+            cursor: default;
+        }
     }
 `;
 

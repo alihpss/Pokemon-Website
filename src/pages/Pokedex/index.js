@@ -1,13 +1,21 @@
 import { useState } from 'react';
-import { Container, ContainerHeader, FavoritesContainer } from './styles';
+import {
+  Container,
+  ContainerHeader,
+  FavoritesContainer,
+  PokedexContainer,
+} from './styles';
 
 import pikachu from '../../assets/images/pikachu.png';
 import notFound from '../../assets/images/not-Found.png';
 import FavoritesCarousel from '../../components/FavoritesCarousel';
 import PokemonItems from '../../components/PokemonItems';
+import Input from '../../components/Input';
+import exportTypeIcons from '../../utils/exportTypeIcons';
+import TypeItems from '../../components/TypeItems';
 
 export default function Pokedex() {
-  const teste = [46, 282, 645, 25, 87, 99, 287, 456];
+  const teste = [46, 282, 646, 25, 87, 99, 287, 456];
   const [aas] = useState(localStorage.getItem('name'));
   function set() {
     localStorage.setItem('name', 'Ali');
@@ -56,7 +64,52 @@ export default function Pokedex() {
         )}
       </FavoritesContainer>
 
-      <h2>Pokedex</h2>
+      <PokedexContainer>
+        <h2>See all pokemon&apos;s bellow.</h2>
+
+        <div className="filters">
+          <Input placeholder="Search by Name or ID" />
+          <div className="typesCarousel">
+            <FavoritesCarousel>
+              {Object.keys(exportTypeIcons).map((type) => (
+                <TypeItems key={Math.random()} typeName={type} />
+              ))}
+            </FavoritesCarousel>
+          </div>
+        </div>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+
+      </PokedexContainer>
+
       <button type="button" onClick={set}>asd</button>
       <button type="button" onClick={del}>del</button>
       <button type="button" onClick={del}>{aas}</button>

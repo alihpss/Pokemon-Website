@@ -21,7 +21,7 @@ export default function Home() {
   const carrouselInformation = [
     { image: squirtle, color: '#6797FA', id: 0 },
     { image: cubone, color: '#9f7ac5', id: 1 },
-    { image: charmander, color: '#1c1c1c', id: 2 },
+    { image: charmander, color: '#FFA630', id: 2 },
   ];
 
   const {
