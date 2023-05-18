@@ -31,7 +31,7 @@ export const Container = styled.div`
     }
 
     .controller:first-child {
-        left: -10%;
+        left: -9%;
     }
 
     div + .controller {

@@ -6,7 +6,7 @@ import { CarouselContainer, Container } from './styles';
 import chevron from '../../assets/images/icons/chevron-left.svg';
 import chevronRigth from '../../assets/images/icons/chevron-right.svg';
 
-export default function FavoritesCarousel({ children, justifyContent }) {
+export default function FavoritesCarousel({ children, justifyContent, carouselWidthToDisableBtn }) {
   const carousel = useRef(null);
   const [disableLeftArrow, setDisableLeftArrow] = useState(true);
   const [disableRightArrow, setDisableRightArrow] = useState(false);
@@ -15,10 +15,12 @@ export default function FavoritesCarousel({ children, justifyContent }) {
     e.preventDefault();
     carousel.current.scrollLeft -= (carousel.current.childNodes[0].clientWidth + 32);
     setDisableRightArrow(false);
-    console.log(carousel.current.clientWidth, carousel.current.childNodes[0].getBoundingClientRect().x);
 
-    if (carousel.current.clientWidth - carousel.current.childNodes[0].getBoundingClientRect().x < 650) {
-      setDisableLeftArrow(true);
+    console.log(carousel.current.clientWidth - carousel.current.childNodes[0].getBoundingClientRect().x, window.screen.width * 0.5 - 30);
+
+    if (carousel.current.clientWidth - carousel.current.childNodes[0].getBoundingClientRect().x <= carouselWidthToDisableBtn) {
+      setDisableLeftArrow(false);
+      console.log('deu');
     }
   }
 
@@ -26,9 +28,8 @@ export default function FavoritesCarousel({ children, justifyContent }) {
     e.preventDefault();
     carousel.current.scrollLeft += (carousel.current.childNodes[0].clientWidth + 32);
     setDisableLeftArrow(false);
-    console.log(carousel.current.childNodes[carousel.current.childNodes.length - 1].getBoundingClientRect().x, carousel.current.clientWidth + carousel.current.clientWidth * 0.3);
 
-    if (carousel.current.childNodes[carousel.current.childNodes.length - 1].getBoundingClientRect().x <= carousel.current.clientWidth + carousel.current.clientWidth * 0.3) {
+    if (carousel.current.childNodes[carousel.current.childNodes.length - 1].getBoundingClientRect().x <= window.screen.width * 0.74 + 70) {
       setDisableRightArrow(true);
     }
   }
@@ -51,8 +52,10 @@ export default function FavoritesCarousel({ children, justifyContent }) {
 FavoritesCarousel.propTypes = {
   children: PropTypes.node.isRequired,
   justifyContent: PropTypes.string,
+  carouselWidthToDisableBtn: PropTypes.number,
 };
 
 FavoritesCarousel.defaultProps = {
   justifyContent: 'flex-start',
+  carouselWidthToDisableBtn: 650,
 };

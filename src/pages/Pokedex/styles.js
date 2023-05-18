@@ -108,7 +108,7 @@ export const PokedexContainer = styled.div`
                 padding: 2px 0;
 
                 & :active {
-                    scale: 0.95;
+                    scale: 0.92;
                 }
             }
 
