@@ -99,13 +99,22 @@ export const PokedexContainer = styled.div`
         justify-content: space-between;
         margin: 3.8rem auto 0 auto;
 
+        & > div {
+            text-align: center;
+        }
+
+        & > div > p {
+            margin-bottom: 0.7rem;
+            font-weight: bolder;
+        }
+
         .typesCarousel {
             width: 40vw;
             max-width: 250px;
 
             div .controller + div {
                 gap: 0.6rem;
-                padding: 2px 0;
+                padding: 2px 4px;
 
                 & :active {
                     scale: 0.92;

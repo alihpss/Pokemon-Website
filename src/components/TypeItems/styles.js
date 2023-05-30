@@ -25,4 +25,13 @@ export const Container = styled.div`
     img {
         width: 13px;
     }
+
+    ${({ typeName }) => typeName === 'all' && css`
+        background-color: #FFF;
+
+        p {
+            color: #000;
+            font-weight: bolder;
+        }
+    `}
 `;

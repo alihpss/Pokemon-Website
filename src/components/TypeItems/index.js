@@ -3,7 +3,18 @@ import PropTypes from 'prop-types';
 import exportTypeIcons from '../../utils/exportTypeIcons';
 import { Container } from './styles';
 
+import all from '../../assets/images/type-icons/all.png';
+
 export default function TypeItems({ typeName }) {
+  if (typeName === 'all') {
+    return (
+      <Container typeName="all">
+        <img src={all} alt="all" />
+        <p>all</p>
+      </Container>
+    );
+  }
+
   return (
     <Container typeName={typeName}>
       <img src={exportTypeIcons[typeName]} alt={typeName} />
@@ -13,5 +24,9 @@ export default function TypeItems({ typeName }) {
 }
 
 TypeItems.propTypes = {
-  typeName: PropTypes.string.isRequired,
+  typeName: PropTypes.string,
+};
+
+TypeItems.defaultProps = {
+  typeName: 'all',
 };

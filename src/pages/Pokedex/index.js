@@ -68,9 +68,14 @@ export default function Pokedex() {
         <h2>See all pokemon&apos;s bellow.</h2>
 
         <div className="filters">
-          <Input placeholder="Search by Name or ID" />
+          <div>
+            <p>Search by name or id: </p>
+            <Input placeholder="Search by Name or ID" />
+          </div>
           <div className="typesCarousel">
+            <p>Search by type: </p>
             <FavoritesCarousel carouselWidthToDisableBtn={window.screen.width - 250}>
+              <TypeItems typeName="all" />
               {Object.keys(exportTypeIcons).map((type) => (
                 <TypeItems key={Math.random()} typeName={type} />
               ))}
