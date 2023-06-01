@@ -79,7 +79,7 @@ export const ImagesLeftContentContainer = styled.div`
     display: flex;
     position: relative;
     justify-content: space-evenly;
-    margin-top: 4rem;
+    margin-top: 1rem;
 
     div {
         position: relative;
@@ -115,9 +115,7 @@ export const ImageContainer = styled.div`
     align-items: center;
 
     img {
-        max-width: 50%;
-        max-height: 70%;
-        position: absolute;
+        max-width: 90%;
         opacity: ${({ typeAnimation }) => (typeAnimation ? 1 : 0)};
         ${({ animated, typeAnimation }) => ((animated && typeAnimation === 'moveDown') ? css`animation: ${moveDown} 1.6s ease-in-out` : null)}
     }

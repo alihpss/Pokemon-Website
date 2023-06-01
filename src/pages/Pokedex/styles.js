@@ -85,6 +85,56 @@ export const FavoritesContainer = styled.div`
             font-weight: bolder;
         }
     }
+
+    .removePokemonOfFavoritesList {
+        position: absolute;
+        top: 15px;
+        left: 10px;
+        background: #FFF;
+        border-radius: 6px;
+        transition: all 0.3s ease-in-out;
+        border: 1px solid #F92338;
+
+        button {
+            display: flex;
+            align-items: center;
+            background: none;
+            border: none;
+            font-weight: 600;
+            color: #F92338;
+            padding: 6px;
+
+            img {
+                margin-right: 5px;
+            }
+
+            span {
+                font-size: 12px;
+            }
+        }
+
+        &:active {
+            scale: 0.95;
+        }
+
+        &:hover {
+            background-color: #F92338;
+
+            img {
+                filter:brightness(0) invert(1);
+            }
+
+            span {
+                color: #FFF;
+            }
+        }
+    }
+
+    &:hover {
+        .removePokemonOfFavoritesList {
+            display: flex;
+        }
+    }
 `;
 
 export const PokedexContainer = styled.div`

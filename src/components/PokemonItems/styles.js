@@ -8,10 +8,24 @@ export const Container = styled.div`
     margin-left: 1rem;
     max-width: 350px;
     border-radius: 23px;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     box-shadow: 0px 0px 17px -6px rgb(0,0,0,0.75);
+
+    .childrenContainer {
+        display: none;
+    }
+
+    &:hover {
+        ${({ children }) => children && css`
+            .childrenContainer {
+                display: flex;
+            }
+        `}
+    }
+
     ${({ type, theme }) => type && css`
         background: linear-gradient(0deg, ${theme.secondaryColors[type]} 10%, ${theme.typeColors[type]} 29%);
     `}

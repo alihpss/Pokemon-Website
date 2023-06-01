@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import {
   Container,
   ContainerHeader,
@@ -14,16 +14,35 @@ import Input from '../../components/Input';
 import exportTypeIcons from '../../utils/exportTypeIcons';
 import TypeItems from '../../components/TypeItems';
 
+import heartbreak from '../../assets/images/icons/heartbreak.svg';
+// eslint-disable-next-line import/no-cycle
+import { PokemonFavoritesContext } from '../../components/App';
+
 export default function Pokedex() {
-  const teste = [46, 282, 646, 25, 87, 99, 287, 456];
+  const [teste, setTeste] = useState([46, 282, 646, 25, 197, 99, 287, 456]);
   const [aas] = useState(localStorage.getItem('name'));
-  function set() {
-    localStorage.setItem('name', 'Ali');
+
+  const testando = useContext(PokemonFavoritesContext);
+
+  console.log(testando);
+  function set(nome) {
+    localStorage.setItem('name', JSON.stringify(nome));
   }
 
   function del() {
     localStorage.clear('name');
   }
+
+  function handleRemoveFavoritePokemon(id) {
+    const newFavoritesPokemonList = testando.filter((idPokemon) => (
+      idPokemon !== id
+    ));
+
+    setTeste(newFavoritesPokemonList);
+    console.log(testando);
+  }
+
+  console.log(teste);
 
   return (
     <Container>
@@ -41,7 +60,7 @@ export default function Pokedex() {
 
       <FavoritesContainer>
 
-        {teste.length === 0 && (
+        {testando.length === 0 && (
         <FavoritesCarousel justifyContent="center">
           <div className="notFoundContainer">
             <img src={notFound} alt="Favorites pokemon not found" />
@@ -50,15 +69,22 @@ export default function Pokedex() {
         </FavoritesCarousel>
         )}
 
-        {teste.length >= 1 && (
+        {testando.length >= 1 && (
         <FavoritesCarousel
-          justifyContent={teste.length <= 2 ? 'center' : 'flex-start'}
+          justifyContent={testando.length <= 2 ? 'center' : 'flex-start'}
         >
-          {teste.map((pokemonId) => (
+          {testando.map((pokemonId) => (
             <PokemonItems
               key={pokemonId}
               idFavoritePokemon={pokemonId}
-            />
+            >
+              <div className="removePokemonOfFavoritesList">
+                <button type="button" onClick={() => handleRemoveFavoritePokemon(pokemonId)}>
+                  <img src={heartbreak} alt="heartbreak icon" />
+                  <span>Remove</span>
+                </button>
+              </div>
+            </PokemonItems>
           ))}
         </FavoritesCarousel>
         )}
@@ -115,8 +141,9 @@ export default function Pokedex() {
 
       </PokedexContainer>
 
-      <button type="button" onClick={set}>asd</button>
-      <button type="button" onClick={del}>del</button>
+      <button type="button" onClick={() => set([1, 3])}>Set Ali</button>
+      <button type="button" onClick={() => set('Sid')}>Set sid</button>
+      <button type="button" onClick={() => console.log(JSON.parse(localStorage.getItem('name')))}>del</button>
       <button type="button" onClick={del}>{aas}</button>
     </Container>
   );

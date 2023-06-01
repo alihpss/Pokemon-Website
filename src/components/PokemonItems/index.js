@@ -8,7 +8,7 @@ import {
 import TypeItems from '../TypeItems';
 import MoreInfoButton from '../MoreInfoButton';
 
-export default function PokemonItems({ idFavoritePokemon }) {
+export default function PokemonItems({ idFavoritePokemon, children }) {
   const [pokemon, setPokemon] = useState([]);
 
   const favoritePokemonInformation = useCallback(async () => {
@@ -73,10 +73,19 @@ export default function PokemonItems({ idFavoritePokemon }) {
       />
       )}
 
+      <div className="childrenContainer">
+        {children}
+      </div>
+
     </Container>
   );
 }
 
 PokemonItems.propTypes = {
   idFavoritePokemon: PropTypes.number.isRequired,
+  children: PropTypes.node,
+};
+
+PokemonItems.defaultProps = {
+  children: null,
 };
