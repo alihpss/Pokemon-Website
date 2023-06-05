@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useState } from 'react';
 import {
   Container,
   ContainerHeader,
@@ -15,16 +15,12 @@ import exportTypeIcons from '../../utils/exportTypeIcons';
 import TypeItems from '../../components/TypeItems';
 
 import heartbreak from '../../assets/images/icons/heartbreak.svg';
-// eslint-disable-next-line import/no-cycle
-import { PokemonFavoritesContext } from '../../components/App';
 
 export default function Pokedex() {
   const [teste, setTeste] = useState([46, 282, 646, 25, 197, 99, 287, 456]);
   const [aas] = useState(localStorage.getItem('name'));
 
-  const testando = useContext(PokemonFavoritesContext);
-
-  console.log(testando);
+  console.log(teste);
   function set(nome) {
     localStorage.setItem('name', JSON.stringify(nome));
   }
@@ -34,12 +30,12 @@ export default function Pokedex() {
   }
 
   function handleRemoveFavoritePokemon(id) {
-    const newFavoritesPokemonList = testando.filter((idPokemon) => (
+    const newFavoritesPokemonList = teste.filter((idPokemon) => (
       idPokemon !== id
     ));
 
     setTeste(newFavoritesPokemonList);
-    console.log(testando);
+    console.log(teste);
   }
 
   console.log(teste);
@@ -60,7 +56,7 @@ export default function Pokedex() {
 
       <FavoritesContainer>
 
-        {testando.length === 0 && (
+        {teste.length === 0 && (
         <FavoritesCarousel justifyContent="center">
           <div className="notFoundContainer">
             <img src={notFound} alt="Favorites pokemon not found" />
@@ -69,11 +65,11 @@ export default function Pokedex() {
         </FavoritesCarousel>
         )}
 
-        {testando.length >= 1 && (
+        {teste.length >= 1 && (
         <FavoritesCarousel
-          justifyContent={testando.length <= 2 ? 'center' : 'flex-start'}
+          justifyContent={teste.length <= 2 ? 'center' : 'flex-start'}
         >
-          {testando.map((pokemonId) => (
+          {teste.map((pokemonId) => (
             <PokemonItems
               key={pokemonId}
               idFavoritePokemon={pokemonId}
