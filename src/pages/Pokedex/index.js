@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import {
   Container,
   ContainerHeader,
@@ -15,30 +15,26 @@ import exportTypeIcons from '../../utils/exportTypeIcons';
 import TypeItems from '../../components/TypeItems';
 
 import heartbreak from '../../assets/images/icons/heartbreak.svg';
+import { FavoritesPokemonList } from '../../Context';
 
 export default function Pokedex() {
-  const [teste, setTeste] = useState([46, 282, 646, 25, 197, 99, 287, 456]);
-  const [aas] = useState(localStorage.getItem('name'));
+  // const [teste, setTeste] = useState([46, 282, 646, 25, 197, 99, 287, 456]);
 
-  console.log(teste);
-  function set(nome) {
-    localStorage.setItem('name', JSON.stringify(nome));
-  }
+  const {
+    pokemonFavoritesByLS,
+    updatePokemonFavoritesByLS,
+    renewPokemonFavoritesByLS,
+  } = useContext(FavoritesPokemonList);
 
-  function del() {
-    localStorage.clear('name');
-  }
+  console.log(pokemonFavoritesByLS, updatePokemonFavoritesByLS);
 
   function handleRemoveFavoritePokemon(id) {
-    const newFavoritesPokemonList = teste.filter((idPokemon) => (
+    const newFavoritesPokemonList = pokemonFavoritesByLS.filter((idPokemon) => (
       idPokemon !== id
     ));
 
-    setTeste(newFavoritesPokemonList);
-    console.log(teste);
+    renewPokemonFavoritesByLS(newFavoritesPokemonList);
   }
-
-  console.log(teste);
 
   return (
     <Container>
@@ -56,7 +52,7 @@ export default function Pokedex() {
 
       <FavoritesContainer>
 
-        {teste.length === 0 && (
+        {pokemonFavoritesByLS.length === 0 && (
         <FavoritesCarousel justifyContent="center">
           <div className="notFoundContainer">
             <img src={notFound} alt="Favorites pokemon not found" />
@@ -65,11 +61,11 @@ export default function Pokedex() {
         </FavoritesCarousel>
         )}
 
-        {teste.length >= 1 && (
+        {pokemonFavoritesByLS.length >= 1 && (
         <FavoritesCarousel
-          justifyContent={teste.length <= 2 ? 'center' : 'flex-start'}
+          justifyContent={pokemonFavoritesByLS.length <= 2 ? 'center' : 'flex-start'}
         >
-          {teste.map((pokemonId) => (
+          {pokemonFavoritesByLS.map((pokemonId) => (
             <PokemonItems
               key={pokemonId}
               idFavoritePokemon={pokemonId}
@@ -116,31 +112,11 @@ export default function Pokedex() {
         <br />
         <br />
         <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+        <button type="button" onClick={() => updatePokemonFavoritesByLS(1)}>update</button>
+        <button type="button" onClick={() => updatePokemonFavoritesByLS(2)}>update</button>
+        <button type="button" onClick={() => updatePokemonFavoritesByLS(3)}>update</button>
 
       </PokedexContainer>
-
-      <button type="button" onClick={() => set([1, 3])}>Set Ali</button>
-      <button type="button" onClick={() => set('Sid')}>Set sid</button>
-      <button type="button" onClick={() => console.log(JSON.parse(localStorage.getItem('name')))}>del</button>
-      <button type="button" onClick={del}>{aas}</button>
     </Container>
   );
 }
