@@ -4,15 +4,16 @@ import exportTypeBackgroundImages from '../../utils/exportBackgroundTypeImages';
 
 export const Container = styled.div`
     min-width: 290px;
+    min-height: 250px;
     margin-right: 1rem;
     margin-left: 1rem;
     max-width: 350px;
-    border-radius: 23px;
+    border-radius: 25px;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-shadow: 0px 0px 17px -6px rgb(0,0,0,0.75);
+    box-shadow: 0px 0px 12px -4px rgb(0,0,0,0.75);
 
     .childrenContainer {
         display: none;
@@ -132,6 +133,8 @@ export const TypesContainer = styled.div`
 export const ImageContainer = styled.div`
     background-repeat: no-repeat;
     background-size: cover;
+    min-height: 192px;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;

@@ -112,9 +112,7 @@ export default function Pokedex() {
         <br />
         <br />
         <br />
-        <button type="button" onClick={() => updatePokemonFavoritesByLS(1)}>update</button>
-        <button type="button" onClick={() => updatePokemonFavoritesByLS(2)}>update</button>
-        <button type="button" onClick={() => updatePokemonFavoritesByLS(3)}>update</button>
+        <button type="button" onClick={() => updatePokemonFavoritesByLS(Math.floor(Math.random() * 500) + 1)}>update</button>
 
       </PokedexContainer>
     </Container>

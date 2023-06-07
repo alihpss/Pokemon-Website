@@ -7,17 +7,23 @@ import {
 
 import TypeItems from '../TypeItems';
 import MoreInfoButton from '../MoreInfoButton';
+import delay from '../../utils/delay';
+import Loader from '../Loader';
 
 export default function PokemonItems({ idFavoritePokemon, children }) {
   const [pokemon, setPokemon] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const favoritePokemonInformation = useCallback(async () => {
     try {
+      await delay(2000);
       const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${idFavoritePokemon}/`);
       const toJson = await data.json();
       setPokemon(toJson);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   }, [idFavoritePokemon]);
 
@@ -30,8 +36,10 @@ export default function PokemonItems({ idFavoritePokemon, children }) {
       type={pokemon.types && (pokemon.types[0].type.name)}
       idFavoritePokemon={idFavoritePokemon}
     >
+      <Loader isLoading={isLoading} />
+
       <ImageContainer type={pokemon.types && (pokemon.types[0].type.name)}>
-        <img src={pokemon.sprites?.other.home.front_default} alt="Pokemon" />
+        {!isLoading && <img src={pokemon.sprites?.other.home.front_default} alt="Pokemon" /> }
       </ImageContainer>
 
       <NameAndIdContainer>

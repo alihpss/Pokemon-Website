@@ -44,6 +44,7 @@ export const CarouselContainer = styled.div`
     display: flex;
     overflow-x: hidden;
     scroll-behavior: smooth;
+    padding: 9px 0px;
 
     &::-webkit-scrollbar {
         display: none;
