@@ -104,10 +104,6 @@ export const FavoritesContainer = styled.div`
             color: #F92338;
             padding: 6px;
 
-            img {
-                margin-right: 5px;
-            }
-
             span {
                 font-size: 12px;
             }

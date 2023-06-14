@@ -73,7 +73,6 @@ export default function Pokedex() {
               <div className="removePokemonOfFavoritesList">
                 <button type="button" onClick={() => handleRemoveFavoritePokemon(pokemonId)}>
                   <img src={heartbreak} alt="heartbreak icon" />
-                  <span>Remove</span>
                 </button>
               </div>
             </PokemonItems>

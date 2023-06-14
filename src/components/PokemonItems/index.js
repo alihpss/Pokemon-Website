@@ -2,13 +2,14 @@
 import { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import {
-  Container, ImageContainer, NameAndIdContainer, StatsContainer, TypesContainer,
+  Container, ImageContainer, NameAndIdContainer, TypesContainer,
 } from './styles';
 
 import TypeItems from '../TypeItems';
 import MoreInfoButton from '../MoreInfoButton';
 import delay from '../../utils/delay';
 import Loader from '../Loader';
+import PokeStats from '../PokeStats';
 
 export default function PokemonItems({ idFavoritePokemon, children }) {
   const [pokemon, setPokemon] = useState([]);
@@ -50,23 +51,10 @@ export default function PokemonItems({ idFavoritePokemon, children }) {
         </span>
       </NameAndIdContainer>
 
-      <StatsContainer>
-        {pokemon.stats?.slice(0, 3).map((stat) => (
-          <div key={stat.stat.name}>
-            <p>{stat.stat.name}</p>
-            <div className="statsBar">
-              <div style={{ width: `${stat.base_stat}%` }}>
-                <ul>
-                  <li />
-                  <li />
-                  <li />
-                  <li />
-                </ul>
-              </div>
-            </div>
-          </div>
-        ))}
-      </StatsContainer>
+      <PokeStats
+        stats={pokemon.stats}
+        numberOfStatsToShow={3}
+      />
 
       <TypesContainer>
         {pokemon.types?.map((type) => (
