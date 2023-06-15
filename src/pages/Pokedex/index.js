@@ -1,4 +1,6 @@
-import { useContext } from 'react';
+import {
+  useContext, useEffect, useState,
+} from 'react';
 import {
   Container,
   ContainerHeader,
@@ -16,17 +18,23 @@ import TypeItems from '../../components/TypeItems';
 
 import heartbreak from '../../assets/images/icons/heartbreak.svg';
 import { FavoritesPokemonList } from '../../Context';
+import delay from '../../utils/delay';
+import PokemonsService from '../../services/PokemonsService';
 
 export default function Pokedex() {
-  // const [teste, setTeste] = useState([46, 282, 646, 25, 197, 99, 287, 456]);
+  const [counterPokemonListIndex] = useState({
+    limit: 20,
+    offSet: 0,
+  });
+
+  const [pokemonRequisitionToDoList, setPokemonRequisitionToDoList] = useState();
+  const [pokemonList, setPokemonList] = useState();
 
   const {
     pokemonFavoritesByLS,
     updatePokemonFavoritesByLS,
     renewPokemonFavoritesByLS,
   } = useContext(FavoritesPokemonList);
-
-  console.log(pokemonFavoritesByLS, updatePokemonFavoritesByLS);
 
   function handleRemoveFavoritePokemon(id) {
     const newFavoritesPokemonList = pokemonFavoritesByLS.filter((idPokemon) => (
@@ -35,6 +43,47 @@ export default function Pokedex() {
 
     renewPokemonFavoritesByLS(newFavoritesPokemonList);
   }
+
+  useEffect(async () => {
+    try {
+      await delay(200);
+      const dataPokemonList = await PokemonsService.getPokemonList(
+        counterPokemonListIndex.limit,
+        counterPokemonListIndex.offSet,
+      );
+      setPokemonRequisitionToDoList(dataPokemonList);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [counterPokemonListIndex]);
+
+  useEffect(async () => {
+    // await delay(2000);
+
+    try {
+      if (pokemonRequisitionToDoList) {
+        const pokemonListDestructuring = pokemonRequisitionToDoList.results.map(({ name }) => name);
+
+        const pokemonResolvedRequisitionList = await Promise.all(
+          pokemonListDestructuring.map(async (pokemonItem) => {
+            const response = await PokemonsService.getPokemonById(pokemonItem);
+            return response;
+          }),
+        );
+
+        setPokemonList(pokemonResolvedRequisitionList);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, [pokemonRequisitionToDoList]);
+
+  /* function handleSetNewPokemonList(valueToIncrease) {
+    setCounterPokemonListIndex((prevState) => ({
+      ...prevState,
+      offSet: 20 * valueToIncrease,
+    }));
+  } */
 
   return (
     <Container>

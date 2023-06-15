@@ -10,6 +10,7 @@ import MoreInfoButton from '../MoreInfoButton';
 import delay from '../../utils/delay';
 import Loader from '../Loader';
 import PokeStats from '../PokeStats';
+import PokemonsService from '../../services/PokemonsService';
 
 export default function PokemonItems({ idFavoritePokemon, children }) {
   const [pokemon, setPokemon] = useState([]);
@@ -18,9 +19,8 @@ export default function PokemonItems({ idFavoritePokemon, children }) {
   const favoritePokemonInformation = useCallback(async () => {
     try {
       await delay(2000);
-      const data = await fetch(`https://pokeapi.co/api/v2/pokemon/${idFavoritePokemon}/`);
-      const toJson = await data.json();
-      setPokemon(toJson);
+      const data = await PokemonsService.getPokemonById(idFavoritePokemon);
+      setPokemon(data);
     } catch (error) {
       console.log(error);
     } finally {
@@ -52,7 +52,7 @@ export default function PokemonItems({ idFavoritePokemon, children }) {
       </NameAndIdContainer>
 
       <PokeStats
-        stats={pokemon.stats}
+        stats={pokemon.stats || []}
         numberOfStatsToShow={3}
       />
 

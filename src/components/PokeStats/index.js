@@ -4,7 +4,7 @@ import { Container } from './styles';
 export default function PokeStats({ stats, numberOfStatsToShow }) {
   return (
     <Container>
-      {stats?.slice(0, numberOfStatsToShow).map((stat) => (
+      {stats.slice(0, numberOfStatsToShow).map((stat) => (
         <div key={stat.stat.name}>
           <p>{stat.stat.name}</p>
           <div className="statsBar">
@@ -24,7 +24,14 @@ export default function PokeStats({ stats, numberOfStatsToShow }) {
 }
 
 PokeStats.propTypes = {
-  stats: PropTypes.arrayOf.isRequired,
+  stats: PropTypes.arrayOf(
+    PropTypes.shape({
+      stat: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+      }).isRequired,
+      base_stat: PropTypes.number.isRequired,
+    }),
+  ).isRequired,
   numberOfStatsToShow: PropTypes.number,
 };
 
