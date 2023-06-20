@@ -201,4 +201,19 @@ export const PokedexContainer = styled.div`
             }
         }
     }
+
+    #pokedexList {
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+        gap: 50px 1rem;
+        margin-top: 6rem;
+        width: 1200px;
+        max-width: 95%;
+        margin: 6rem auto 0 auto;
+        align-items: center;
+        justify-content: center;
+        justify-items: center;
+        min-height: 12rem;
+    }
 `;

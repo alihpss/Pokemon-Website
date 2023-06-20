@@ -46,7 +46,7 @@ export default function PokemonItems({ idFavoritePokemon, children }) {
       <NameAndIdContainer>
         <p>{pokemon.name}</p>
         <span>
-          {Number(pokemon.id) < 10 ? '#00' : (Number(pokemon.id) < 100 ? '#0' : '#')}
+          {!isLoading && (Number(pokemon.id) < 10 ? '#00' : (Number(pokemon.id) < 100 ? '#0' : '#'))}
           {pokemon.id}
         </span>
       </NameAndIdContainer>

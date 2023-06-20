@@ -20,13 +20,15 @@ import heartbreak from '../../assets/images/icons/heartbreak.svg';
 import { FavoritesPokemonList } from '../../Context';
 import delay from '../../utils/delay';
 import PokemonsService from '../../services/PokemonsService';
+import Loader from '../../components/Loader';
 
 export default function Pokedex() {
-  const [counterPokemonListIndex] = useState({
-    limit: 20,
+  const [counterPokemonListIndex, setCounterPokemonListIndex] = useState({
+    limit: 21,
     offSet: 0,
   });
 
+  const [isLoading, setIsLoading] = useState(true);
   const [pokemonRequisitionToDoList, setPokemonRequisitionToDoList] = useState();
   const [pokemonList, setPokemonList] = useState();
 
@@ -58,32 +60,33 @@ export default function Pokedex() {
   }, [counterPokemonListIndex]);
 
   useEffect(async () => {
-    // await delay(2000);
-
     try {
+      setIsLoading(true);
       if (pokemonRequisitionToDoList) {
         const pokemonListDestructuring = pokemonRequisitionToDoList.results.map(({ name }) => name);
 
         const pokemonResolvedRequisitionList = await Promise.all(
           pokemonListDestructuring.map(async (pokemonItem) => {
+            await delay(2000);
             const response = await PokemonsService.getPokemonById(pokemonItem);
             return response;
           }),
         );
-
         setPokemonList(pokemonResolvedRequisitionList);
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   }, [pokemonRequisitionToDoList]);
 
-  /* function handleSetNewPokemonList(valueToIncrease) {
+  function handleSetNewPokemonList(valueToIncrease) {
     setCounterPokemonListIndex((prevState) => ({
       ...prevState,
-      offSet: 20 * valueToIncrease,
+      offSet: 20 * valueToIncrease + 1,
     }));
-  } */
+  }
 
   return (
     <Container>
@@ -148,18 +151,18 @@ export default function Pokedex() {
             </FavoritesCarousel>
           </div>
         </div>
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
-        <br />
+
+        <button type="button" onClick={() => handleSetNewPokemonList(2)}>Incrementar</button>
+        <button type="button" onClick={() => handleSetNewPokemonList(1)}>Decrementar</button>
+        <div id="pokedexList">
+          <Loader isLoading={isLoading} backgroundColorIsInvisible />
+          {!isLoading && pokemonList?.map((pokemon) => (
+            <PokemonItems
+              key={pokemon.id}
+              idFavoritePokemon={pokemon.id}
+            />
+          ))}
+        </div>
         <button type="button" onClick={() => updatePokemonFavoritesByLS(Math.floor(Math.random() * 500) + 1)}>update</button>
 
       </PokedexContainer>
