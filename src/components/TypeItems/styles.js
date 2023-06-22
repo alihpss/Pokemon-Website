@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-export const Container = styled.div`
+export const Container = styled.button`
     display: flex;
     border-radius: 6px;
     padding: 6px;
@@ -8,7 +8,7 @@ export const Container = styled.div`
     margin-top: 8px;
     box-shadow: 0px 0px 8px 0px rgb(0,0,0,0.75);
     user-select: none;
-    cursor: pointer;
+    border: none;
 
     ${({ typeName, theme }) => typeName && css`
         background-color: ${theme.typeColors[typeName]};

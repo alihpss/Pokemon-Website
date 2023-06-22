@@ -167,7 +167,7 @@ export default function Pokedex() {
           </div>
           <div className="typesCarousel">
             <p>Search by type: </p>
-            <FavoritesCarousel carouselWidthToDisableBtn={window.screen.width - 250}>
+            <FavoritesCarousel>
               <TypeItems typeName="all" />
               {Object.keys(exportTypeIcons).map((type) => (
                 <TypeItems key={Math.random()} typeName={type} />

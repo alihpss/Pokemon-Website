@@ -167,7 +167,7 @@ export const PokedexContainer = styled.div`
                 }
             }
 
-            div .controller + div div {
+            div .controller + div button {
                 margin-top: 0;
                 box-shadow: 0px 0px 3px 0px rgb(0,0,0,0.75);
 
