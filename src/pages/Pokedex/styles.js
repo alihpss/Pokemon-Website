@@ -134,7 +134,7 @@ export const FavoritesContainer = styled.div`
 `;
 
 export const PokedexContainer = styled.div`
-    background-color: #949d6a;
+    background-color: #9DBF9E;
     padding-top: 10rem;
 
     .filters {

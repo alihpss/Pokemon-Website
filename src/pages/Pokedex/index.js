@@ -21,11 +21,12 @@ import { FavoritesPokemonList } from '../../Context';
 import delay from '../../utils/delay';
 import PokemonsService from '../../services/PokemonsService';
 import Loader from '../../components/Loader';
+import Pagination from '../../components/Pagination';
 
 export default function Pokedex() {
-  const [counterPokemonListIndex, setCounterPokemonListIndex] = useState({
-    limit: 21,
-    offSet: 0,
+  const [counter, setCounter] = useState({
+    index: 0,
+    value: 0,
   });
 
   const [isLoading, setIsLoading] = useState(true);
@@ -50,16 +51,17 @@ export default function Pokedex() {
     try {
       await delay(200);
       const dataPokemonList = await PokemonsService.getPokemonList(
-        counterPokemonListIndex.limit,
-        counterPokemonListIndex.offSet,
+        12,
+        counter.value,
       );
       setPokemonRequisitionToDoList(dataPokemonList);
     } catch (error) {
       console.log(error);
     }
-  }, [counterPokemonListIndex]);
+  }, [counter]);
 
   useEffect(async () => {
+    // useEffect n pode ser async
     try {
       setIsLoading(true);
       if (pokemonRequisitionToDoList) {
@@ -82,9 +84,31 @@ export default function Pokedex() {
   }, [pokemonRequisitionToDoList]);
 
   function handleSetNewPokemonList(valueToIncrease) {
-    setCounterPokemonListIndex((prevState) => ({
-      ...prevState,
-      offSet: 20 * valueToIncrease + 1,
+    setCounter({
+      index: valueToIncrease,
+      value: valueToIncrease * 12,
+    });
+  }
+
+  function handleControllerPaginationLessOne() {
+    if (counter.index === 0) {
+      return;
+    }
+
+    setCounter((prevState) => ({
+      index: prevState.index - 1,
+      value: prevState.value - 12,
+    }));
+  }
+
+  function handleControllerPaginationAddOne() {
+    if (counter.index === 39) {
+      return;
+    }
+
+    setCounter((prevState) => ({
+      index: prevState.index + 1,
+      value: prevState.value + 12,
     }));
   }
 
@@ -152,8 +176,6 @@ export default function Pokedex() {
           </div>
         </div>
 
-        <button type="button" onClick={() => handleSetNewPokemonList(2)}>Incrementar</button>
-        <button type="button" onClick={() => handleSetNewPokemonList(1)}>Decrementar</button>
         <div id="pokedexList">
           <Loader isLoading={isLoading} backgroundColorIsInvisible />
           {!isLoading && pokemonList?.map((pokemon) => (
@@ -163,6 +185,13 @@ export default function Pokedex() {
             />
           ))}
         </div>
+
+        <Pagination
+          counter={counter}
+          onClick={handleSetNewPokemonList}
+          controllerAddIndex={handleControllerPaginationAddOne}
+          controllerRemoveIndex={handleControllerPaginationLessOne}
+        />
         <button type="button" onClick={() => updatePokemonFavoritesByLS(Math.floor(Math.random() * 500) + 1)}>update</button>
 
       </PokedexContainer>

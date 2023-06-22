@@ -1,37 +1,55 @@
-/* eslint-disable max-len */
 import PropTypes from 'prop-types';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { CarouselContainer, Container } from './styles';
 
 import chevron from '../../assets/images/icons/chevron-left.svg';
 import chevronRigth from '../../assets/images/icons/chevron-right.svg';
 
-export default function FavoritesCarousel({ children, justifyContent, carouselWidthToDisableBtn }) {
+export default function FavoritesCarousel({ children, justifyContent }) {
   const carousel = useRef(null);
   const [disableLeftArrow, setDisableLeftArrow] = useState(true);
   const [disableRightArrow, setDisableRightArrow] = useState(false);
 
-  function handleChangePositionToRight(e) {
-    e.preventDefault();
-    carousel.current.scrollLeft -= (carousel.current.childNodes[0].clientWidth + 32);
-    setDisableRightArrow(false);
+  useEffect(() => {
+    const handleScroll = () => {
+      const { scrollLeft } = carousel.current;
+      const maxScrollLeft = carousel.current.scrollWidth - carousel.current.clientWidth;
+      const minScrollLeft = 0;
 
-    console.log(carousel.current.clientWidth - carousel.current.childNodes[0].getBoundingClientRect().x, window.screen.width * 0.5 - 30);
+      if (scrollLeft === minScrollLeft) {
+        setDisableLeftArrow(true);
+      } else {
+        setDisableLeftArrow(false);
+      }
 
-    if (carousel.current.clientWidth - carousel.current.childNodes[0].getBoundingClientRect().x <= carouselWidthToDisableBtn) {
-      setDisableLeftArrow(false);
-      console.log('deu');
+      if (scrollLeft >= maxScrollLeft) {
+        setDisableRightArrow(true);
+      } else {
+        setDisableRightArrow(false);
+      }
+    };
+
+    carousel.current.addEventListener('scroll', handleScroll);
+
+    return () => {
+      carousel.current.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (children.length === 1) {
+      setDisableRightArrow(true);
+    } else {
+      setDisableRightArrow(false);
     }
+  }, [children]);
+
+  function handleChangePositionToRight() {
+    carousel.current.scrollLeft -= (carousel.current.childNodes[0].clientWidth + 32);
   }
 
-  function handleChangePositionToLeft(e) {
-    e.preventDefault();
+  function handleChangePositionToLeft() {
     carousel.current.scrollLeft += (carousel.current.childNodes[0].clientWidth + 32);
-    setDisableLeftArrow(false);
-
-    if (carousel.current.childNodes[carousel.current.childNodes.length - 1].getBoundingClientRect().x <= window.screen.width * 0.74 + 70) {
-      setDisableRightArrow(true);
-    }
   }
 
   return (
@@ -52,10 +70,8 @@ export default function FavoritesCarousel({ children, justifyContent, carouselWi
 FavoritesCarousel.propTypes = {
   children: PropTypes.node.isRequired,
   justifyContent: PropTypes.string,
-  carouselWidthToDisableBtn: PropTypes.number,
 };
 
 FavoritesCarousel.defaultProps = {
   justifyContent: 'flex-start',
-  carouselWidthToDisableBtn: 650,
 };
