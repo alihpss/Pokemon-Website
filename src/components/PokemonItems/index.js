@@ -1,5 +1,11 @@
 /* eslint-disable no-nested-ternary */
-import { useCallback, useEffect, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useState,
+  useRef,
+} from 'react';
+
 import PropTypes from 'prop-types';
 import {
   Container, ImageContainer, NameAndIdContainer, TypesContainer,
@@ -15,21 +21,29 @@ import PokemonsService from '../../services/PokemonsService';
 export default function PokemonItems({ idFavoritePokemon, children }) {
   const [pokemon, setPokemon] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const isMounted = useRef(true);
 
   const favoritePokemonInformation = useCallback(async () => {
     try {
       await delay(2000);
       const data = await PokemonsService.getPokemonById(idFavoritePokemon);
-      setPokemon(data);
+
+      if (isMounted.current) {
+        setPokemon(data);
+        setIsLoading(false);
+      }
     } catch (error) {
       console.log(error);
-    } finally {
       setIsLoading(false);
     }
   }, [idFavoritePokemon]);
 
   useEffect(() => {
     favoritePokemonInformation();
+
+    return () => {
+      isMounted.current = false;
+    };
   }, [favoritePokemonInformation]);
 
   return (

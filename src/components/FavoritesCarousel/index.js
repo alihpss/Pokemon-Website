@@ -32,7 +32,7 @@ export default function FavoritesCarousel({ children, justifyContent }) {
     carousel.current.addEventListener('scroll', handleScroll);
 
     return () => {
-      carousel.current.removeEventListener('scroll', handleScroll);
+      carousel.current?.removeEventListener('scroll', handleScroll);
     };
   }, []);
 

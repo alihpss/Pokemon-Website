@@ -8,7 +8,12 @@ export default function Pagination({
   onClick,
   controllerAddIndex,
   controllerRemoveIndex,
+  isDisabled,
 }) {
+  if (isDisabled) {
+    return null;
+  }
+
   return (
     <PaginationContainer>
       <button type="button" className="controller" onClick={controllerRemoveIndex}>
@@ -125,4 +130,5 @@ Pagination.propTypes = {
   onClick: PropTypes.func.isRequired,
   controllerAddIndex: PropTypes.func.isRequired,
   controllerRemoveIndex: PropTypes.func.isRequired,
+  isDisabled: PropTypes.bool.isRequired,
 };

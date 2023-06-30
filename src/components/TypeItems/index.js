@@ -1,22 +1,31 @@
 import PropTypes from 'prop-types';
 
 import exportTypeIcons from '../../utils/exportTypeIcons';
-import { Container } from './styles';
+import { ButtonContainer, Container } from './styles';
 
 import all from '../../assets/images/type-icons/all.png';
 
-export default function TypeItems({ typeName }) {
+export default function TypeItems({ typeName, isButton }) {
   if (typeName === 'all') {
     return (
-      <Container typeName="all" role="button">
+      <ButtonContainer typeName="all" role="button">
         <img src={all} alt="all" />
         <p>all</p>
-      </Container >
+      </ButtonContainer>
+    );
+  }
+
+  if (isButton) {
+    return (
+      <ButtonContainer typeName={typeName}>
+        <img src={exportTypeIcons[typeName]} alt={typeName} />
+        <p>{typeName}</p>
+      </ButtonContainer>
     );
   }
 
   return (
-    <Container typeName={typeName} role="button">
+    <Container typeName={typeName}>
       <img src={exportTypeIcons[typeName]} alt={typeName} />
       <p>{typeName}</p>
     </Container>
@@ -25,8 +34,10 @@ export default function TypeItems({ typeName }) {
 
 TypeItems.propTypes = {
   typeName: PropTypes.string,
+  isButton: PropTypes.bool,
 };
 
 TypeItems.defaultProps = {
   typeName: 'all',
+  isButton: false,
 };

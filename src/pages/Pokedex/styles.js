@@ -26,7 +26,7 @@ export const ContainerHeader = styled.div`
     max-height: 350px;
     align-items: center;
     justify-content: space-evenly;
-    background-color: #FFCB05;
+    background-color: #3C5181;
     border-radius: 10px;
     box-shadow: 0px 0px 26px -11px rgb(0,0,0,0.95);
 
@@ -152,6 +152,18 @@ export const PokedexContainer = styled.div`
         & > div > p {
             margin-bottom: 0.7rem;
             font-weight: bolder;
+        }
+
+        #filterByName {
+            display: flex;
+            border: 2px solid;
+            border-color: #7168ff;
+
+            button {
+                padding: 2px 8px;
+                border: none;
+                background-color: #7168ff;
+            }
         }
 
         .typesCarousel {

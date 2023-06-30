@@ -1,6 +1,12 @@
 import {
-  useContext, useEffect, useState,
+  useContext,
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+  useMemo,
 } from 'react';
+
 import {
   Container,
   ContainerHeader,
@@ -8,20 +14,21 @@ import {
   PokedexContainer,
 } from './styles';
 
-import pikachu from '../../assets/images/pikachu.png';
-import notFound from '../../assets/images/not-Found.png';
+import { FavoritesPokemonList } from '../../Context';
+import delay from '../../utils/delay';
+import PokemonsService from '../../services/PokemonsService';
+import Loader from '../../components/Loader';
+import Pagination from '../../components/Pagination';
 import FavoritesCarousel from '../../components/FavoritesCarousel';
 import PokemonItems from '../../components/PokemonItems';
 import Input from '../../components/Input';
 import exportTypeIcons from '../../utils/exportTypeIcons';
 import TypeItems from '../../components/TypeItems';
 
+import pikachu from '../../assets/images/pikachu.png';
+import notFound from '../../assets/images/not-Found.png';
+import searchIcon from '../../assets/images/icons/search.svg';
 import heartbreak from '../../assets/images/icons/heartbreak.svg';
-import { FavoritesPokemonList } from '../../Context';
-import delay from '../../utils/delay';
-import PokemonsService from '../../services/PokemonsService';
-import Loader from '../../components/Loader';
-import Pagination from '../../components/Pagination';
 
 export default function Pokedex() {
   const [counter, setCounter] = useState({
@@ -29,15 +36,110 @@ export default function Pokedex() {
     value: 0,
   });
 
+  const [totalRequests, setTotalRequests] = useState({
+    index: 0,
+    value: 12,
+  });
+
   const [isLoading, setIsLoading] = useState(true);
   const [pokemonRequisitionToDoList, setPokemonRequisitionToDoList] = useState();
   const [pokemonList, setPokemonList] = useState();
+  const [searchName, setSearchName] = useState('');
+  const isMountedRef = useRef(true);
+  const valueOfNameFilter = useRef();
 
   const {
     pokemonFavoritesByLS,
     updatePokemonFavoritesByLS,
     renewPokemonFavoritesByLS,
   } = useContext(FavoritesPokemonList);
+
+  const filteredPokemons = useMemo(() => {
+    if (!searchName) {
+      return pokemonList;
+    }
+
+    return pokemonList?.filter((pokemon) => (
+      pokemon.name.toLowerCase().includes(searchName.toLowerCase())));
+  }, [pokemonList, searchName]);
+
+  const fetchPokemon = useCallback(async () => {
+    try {
+      await delay(200);
+      const dataPokemonList = await PokemonsService.getPokemonList(
+        totalRequests.value,
+        counter.value,
+      );
+      setPokemonRequisitionToDoList(dataPokemonList);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [counter, totalRequests]);
+
+  const fetchPokemonList = useCallback(async () => {
+    setIsLoading(true);
+    if (pokemonRequisitionToDoList) {
+      const pokemonListDestructuring = pokemonRequisitionToDoList.results.map(({ name }) => name);
+
+      const pokemonResolvedRequisitionList = await Promise.all(
+        pokemonListDestructuring.map(async (pokemonItem) => {
+          await delay(2000);
+          const response = await PokemonsService.getPokemonById(pokemonItem);
+          return response;
+        }),
+      );
+
+      if (isMountedRef.current) {
+        setPokemonList(pokemonResolvedRequisitionList);
+      }
+    }
+    setIsLoading(false);
+  }, [pokemonRequisitionToDoList]);
+
+  useEffect(() => {
+    fetchPokemon();
+  }, [fetchPokemon]);
+
+  useEffect(() => {
+    fetchPokemonList();
+  }, [fetchPokemonList]);
+
+  function handleChangeSearchName(event) {
+    const inputValue = event.target.value;
+    valueOfNameFilter.current = inputValue;
+  }
+
+  function handleUpdateSearchName(inputValue) {
+    if (!inputValue && totalRequests.value === 12) {
+      return;
+    }
+
+    setSearchName(inputValue);
+
+    if (!inputValue) {
+      setCounter((prevState) => ({
+        ...prevState,
+        index: 0,
+      }));
+
+      setTotalRequests((prevState) => ({
+        ...prevState,
+        value: 12,
+        index: 0,
+      }));
+    } else {
+      setCounter((prevState) => ({
+        ...prevState,
+        index: 0,
+        value: 0,
+      }));
+      setTotalRequests((prevState) => ({
+        ...prevState,
+        value: 350,
+        index: 0,
+      }));
+    }
+  }
 
   function handleRemoveFavoritePokemon(id) {
     const newFavoritesPokemonList = pokemonFavoritesByLS.filter((idPokemon) => (
@@ -46,42 +148,6 @@ export default function Pokedex() {
 
     renewPokemonFavoritesByLS(newFavoritesPokemonList);
   }
-
-  useEffect(async () => {
-    try {
-      await delay(200);
-      const dataPokemonList = await PokemonsService.getPokemonList(
-        12,
-        counter.value,
-      );
-      setPokemonRequisitionToDoList(dataPokemonList);
-    } catch (error) {
-      console.log(error);
-    }
-  }, [counter]);
-
-  useEffect(async () => {
-    // useEffect n pode ser async
-    try {
-      setIsLoading(true);
-      if (pokemonRequisitionToDoList) {
-        const pokemonListDestructuring = pokemonRequisitionToDoList.results.map(({ name }) => name);
-
-        const pokemonResolvedRequisitionList = await Promise.all(
-          pokemonListDestructuring.map(async (pokemonItem) => {
-            await delay(2000);
-            const response = await PokemonsService.getPokemonById(pokemonItem);
-            return response;
-          }),
-        );
-        setPokemonList(pokemonResolvedRequisitionList);
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setIsLoading(false);
-    }
-  }, [pokemonRequisitionToDoList]);
 
   function handleSetNewPokemonList(valueToIncrease) {
     setCounter({
@@ -162,15 +228,20 @@ export default function Pokedex() {
 
         <div className="filters">
           <div>
-            <p>Search by name or id: </p>
-            <Input placeholder="Search by Name or ID" />
+            <p>Search pokemon by Name: </p>
+            <div id="filterByName">
+              <Input placeholder="Search by Name" onChange={handleChangeSearchName} />
+              <button type="button" onClick={() => handleUpdateSearchName(valueOfNameFilter.current)}>
+                <img src={searchIcon} alt="Search icon" />
+              </button>
+            </div>
           </div>
           <div className="typesCarousel">
-            <p>Search by type: </p>
+            <p>Search pokemon by Type: </p>
             <FavoritesCarousel>
               <TypeItems typeName="all" />
               {Object.keys(exportTypeIcons).map((type) => (
-                <TypeItems key={Math.random()} typeName={type} />
+                <TypeItems key={Math.random()} typeName={type} isButton />
               ))}
             </FavoritesCarousel>
           </div>
@@ -178,7 +249,7 @@ export default function Pokedex() {
 
         <div id="pokedexList">
           <Loader isLoading={isLoading} backgroundColorIsInvisible />
-          {!isLoading && pokemonList?.map((pokemon) => (
+          {!isLoading && filteredPokemons?.map((pokemon) => (
             <PokemonItems
               key={pokemon.id}
               idFavoritePokemon={pokemon.id}
@@ -191,8 +262,9 @@ export default function Pokedex() {
           onClick={handleSetNewPokemonList}
           controllerAddIndex={handleControllerPaginationAddOne}
           controllerRemoveIndex={handleControllerPaginationLessOne}
+          isDisabled={totalRequests.value >= 13}
         />
-        <button type="button" onClick={() => updatePokemonFavoritesByLS(Math.floor(Math.random() * 500) + 1)}>update</button>
+        <button type="button" onClick={() => updatePokemonFavoritesByLS(Math.floor(Math.random() * 1000) + 1)}>update</button>
 
       </PokedexContainer>
     </Container>
