@@ -28,6 +28,14 @@ export const PaginationContainer = styled.div`
         &:active {
             scale: 0.90;
         }
+
+        &:disabled {
+            filter: brightness(0) invert(1);
+
+            &:active {
+                scale: 1;
+            }
+        }
     }
 `;
 

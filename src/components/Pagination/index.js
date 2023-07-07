@@ -16,7 +16,12 @@ export default function Pagination({
 
   return (
     <PaginationContainer>
-      <button type="button" className="controller" onClick={controllerRemoveIndex}>
+      <button
+        type="button"
+        className="controller"
+        onClick={controllerRemoveIndex}
+        disabled={counter.index === 0}
+      >
         <img src={chevronLeft} alt="goLeft" />
       </button>
       <ButtonPagination
@@ -115,7 +120,12 @@ export default function Pagination({
           </ButtonPagination>
         </>
         )}
-      <button type="button" className="controller" onClick={controllerAddIndex}>
+      <button
+        type="button"
+        className="controller"
+        onClick={controllerAddIndex}
+        disabled={counter.index === 39}
+      >
         <img src={chevronLeft} alt="goRight" className="secondImage" />
       </button>
     </PaginationContainer>

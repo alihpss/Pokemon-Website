@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import exportTypeBackgroundImages from '../../utils/exportBackgroundTypeImages';
 
 export const Container = styled.div`
-    min-width: 290px;
+    min-width: 270px;
     min-height: 250px;
     margin-right: 1rem;
     margin-left: 1rem;

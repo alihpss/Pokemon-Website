@@ -29,6 +29,7 @@ import pikachu from '../../assets/images/pikachu.png';
 import notFound from '../../assets/images/not-Found.png';
 import searchIcon from '../../assets/images/icons/search.svg';
 import heartbreak from '../../assets/images/icons/heartbreak.svg';
+import Footer from '../../components/Footer';
 
 export default function Pokedex() {
   const [counter, setCounter] = useState({
@@ -45,6 +46,8 @@ export default function Pokedex() {
   const [pokemonRequisitionToDoList, setPokemonRequisitionToDoList] = useState();
   const [pokemonList, setPokemonList] = useState();
   const [searchName, setSearchName] = useState('');
+  const [searchByType, setSearchByType] = useState('');
+
   const isMountedRef = useRef(true);
   const valueOfNameFilter = useRef();
 
@@ -55,13 +58,18 @@ export default function Pokedex() {
   } = useContext(FavoritesPokemonList);
 
   const filteredPokemons = useMemo(() => {
+    if (searchByType && searchByType !== 'all') {
+      return pokemonList?.filter((pokemon) => (
+        pokemon.types[0].type.name === searchByType || pokemon.types[1]?.type.name === searchByType
+      ));
+    }
     if (!searchName) {
       return pokemonList;
     }
 
     return pokemonList?.filter((pokemon) => (
       pokemon.name.toLowerCase().includes(searchName.toLowerCase())));
-  }, [pokemonList, searchName]);
+  }, [pokemonList, searchName, searchByType]);
 
   const fetchPokemon = useCallback(async () => {
     try {
@@ -114,9 +122,46 @@ export default function Pokedex() {
       return;
     }
 
+    setIsLoading(true);
+    setSearchByType('all');
     setSearchName(inputValue);
 
     if (!inputValue) {
+      setCounter((prevState) => ({
+        ...prevState,
+        index: 0,
+      }));
+
+      setTotalRequests((prevState) => ({
+        ...prevState,
+        value: 12,
+        index: 0,
+      }));
+    } else {
+      setCounter((prevState) => ({
+        ...prevState,
+        index: 0,
+        value: 0,
+      }));
+      setTotalRequests((prevState) => ({
+        ...prevState,
+        value: 350,
+        index: 0,
+      }));
+    }
+  }
+
+  function handleUpdateSearchByType(type) {
+    if ((!type && totalRequests.value === 12)
+     || (type.toLowerCase() === searchByType.toLowerCase())) {
+      return;
+    }
+
+    setIsLoading(true);
+    setSearchName('');
+    setSearchByType(type.toLowerCase());
+
+    if (!type || type === 'all') {
       setCounter((prevState) => ({
         ...prevState,
         index: 0,
@@ -230,21 +275,55 @@ export default function Pokedex() {
           <div>
             <p>Search pokemon by Name: </p>
             <div id="filterByName">
-              <Input placeholder="Search by Name" onChange={handleChangeSearchName} />
+              <Input placeholder="Search by Name" onChange={handleChangeSearchName} maxLength={12} />
               <button type="button" onClick={() => handleUpdateSearchName(valueOfNameFilter.current)}>
                 <img src={searchIcon} alt="Search icon" />
               </button>
             </div>
           </div>
           <div className="typesCarousel">
-            <p>Search pokemon by Type: </p>
+            <p>Filter by Type: </p>
             <FavoritesCarousel>
-              <TypeItems typeName="all" />
+              <TypeItems typeName="all" onClick={() => handleUpdateSearchByType('all')} />
               {Object.keys(exportTypeIcons).map((type) => (
-                <TypeItems key={Math.random()} typeName={type} isButton />
+                <TypeItems
+                  key={Math.random()}
+                  typeName={type}
+                  isButton
+                  onClick={() => handleUpdateSearchByType(type)}
+                />
               ))}
             </FavoritesCarousel>
           </div>
+        </div>
+
+        <div className="searchResultAndResetFilter">
+          {searchName && (
+          <>
+            <p>
+              Results for  &quot;
+              {searchName}
+              &quot;:
+            </p>
+            <button type="button" onClick={() => handleUpdateSearchName('')}>
+              <span>Reset search</span>
+            </button>
+          </>
+          )}
+
+          {(searchByType && searchByType !== 'all') && (
+            <>
+              <div>
+                <p>
+                  Results for:
+                </p>
+                <TypeItems typeName={searchByType} />
+              </div>
+              <button type="button" onClick={() => handleUpdateSearchByType('')}>
+                <span>Reset filter</span>
+              </button>
+            </>
+          )}
         </div>
 
         <div id="pokedexList">
@@ -267,6 +346,8 @@ export default function Pokedex() {
         <button type="button" onClick={() => updatePokemonFavoritesByLS(Math.floor(Math.random() * 1000) + 1)}>update</button>
 
       </PokedexContainer>
+
+      <Footer />
     </Container>
   );
 }

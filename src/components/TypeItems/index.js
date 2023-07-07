@@ -5,10 +5,10 @@ import { ButtonContainer, Container } from './styles';
 
 import all from '../../assets/images/type-icons/all.png';
 
-export default function TypeItems({ typeName, isButton }) {
+export default function TypeItems({ typeName, isButton, onClick }) {
   if (typeName === 'all') {
     return (
-      <ButtonContainer typeName="all" role="button">
+      <ButtonContainer typeName="all" role="button" onClick={onClick}>
         <img src={all} alt="all" />
         <p>all</p>
       </ButtonContainer>
@@ -17,7 +17,7 @@ export default function TypeItems({ typeName, isButton }) {
 
   if (isButton) {
     return (
-      <ButtonContainer typeName={typeName}>
+      <ButtonContainer typeName={typeName} onClick={onClick}>
         <img src={exportTypeIcons[typeName]} alt={typeName} />
         <p>{typeName}</p>
       </ButtonContainer>
@@ -35,9 +35,11 @@ export default function TypeItems({ typeName, isButton }) {
 TypeItems.propTypes = {
   typeName: PropTypes.string,
   isButton: PropTypes.bool,
+  onClick: PropTypes.func,
 };
 
 TypeItems.defaultProps = {
   typeName: 'all',
   isButton: false,
+  onClick: null,
 };

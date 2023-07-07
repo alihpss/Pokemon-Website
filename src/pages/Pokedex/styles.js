@@ -93,7 +93,7 @@ export const FavoritesContainer = styled.div`
         background: #FFF;
         border-radius: 6px;
         transition: all 0.3s ease-in-out;
-        border: 1px solid #F92338;
+        border: 1px solid ${({ theme }) => theme.colors.danger};
 
         button {
             display: flex;
@@ -101,7 +101,7 @@ export const FavoritesContainer = styled.div`
             background: none;
             border: none;
             font-weight: 600;
-            color: #F92338;
+            color: ${({ theme }) => theme.colors.danger};
             padding: 6px;
 
             span {
@@ -114,7 +114,7 @@ export const FavoritesContainer = styled.div`
         }
 
         &:hover {
-            background-color: #F92338;
+            background-color: ${({ theme }) => theme.colors.danger};
 
             img {
                 filter:brightness(0) invert(1);
@@ -134,8 +134,40 @@ export const FavoritesContainer = styled.div`
 `;
 
 export const PokedexContainer = styled.div`
-    background-color: #9DBF9E;
-    padding-top: 10rem;
+    background-color: #ffecc0;
+    padding: 5rem 0;
+
+    .searchResultAndResetFilter {
+        display: flex;
+        width: 95%;
+        flex-direction: column;
+        align-items: center;
+        margin: 4rem auto 0 auto;
+
+        p {
+            font-size: 28px;
+            font-weight: bolder;
+        }
+
+        button {
+            background: none;
+            border: none;
+            color: ${({ theme }) => theme.colors.pokedexBackground};
+            margin-top: 1rem;
+        }
+
+        div div {
+            width: 90%;
+            margin: 1rem auto 0 auto;
+            justify-content: center;
+        }
+
+        div div p {
+            font-size: 16px;
+        }
+
+
+    }
 
     .filters {
         display: flex;
@@ -157,12 +189,12 @@ export const PokedexContainer = styled.div`
         #filterByName {
             display: flex;
             border: 2px solid;
-            border-color: #7168ff;
+            border-color: ${({ theme }) => theme.colors.pokedexBackground};
 
             button {
                 padding: 2px 8px;
                 border: none;
-                background-color: #7168ff;
+                background-color: ${({ theme }) => theme.colors.pokedexBackground};
             }
         }
 
@@ -219,10 +251,9 @@ export const PokedexContainer = styled.div`
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
         gap: 50px 1rem;
-        margin-top: 6rem;
         width: 1200px;
         max-width: 95%;
-        margin: 6rem auto 0 auto;
+        margin: 3rem auto 0 auto;
         align-items: center;
         justify-content: center;
         justify-items: center;

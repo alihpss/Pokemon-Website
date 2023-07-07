@@ -4,6 +4,7 @@ export default {
     pokedexBackground: '#7168ff',
     dark: '#000',
     light: '#F8F8F8',
+    danger: '#F92338',
   },
   typeColors: {
     bug: 'rgba(133, 194, 40,0.8)',
