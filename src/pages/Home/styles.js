@@ -97,17 +97,6 @@ export const ImagesLeftContentContainer = styled.div`
     }
 `;
 
-export const ColumnSkew = styled.div`
-    background: ${({ theme }) => theme.colors.background};
-    position: absolute;
-    width: 4.5rem;
-    height: calc(100vh + 2px);
-    top: -3px;
-    left: 50%;
-    transform: translateX(-55%) rotate(4deg);
-    z-index: -1;
-`;
-
 export const ImageContainer = styled.div`
     width: 45%;
     display: flex;
@@ -116,8 +105,9 @@ export const ImageContainer = styled.div`
 
     img {
         max-width: 90%;
+        max-height: 100%;
         opacity: ${({ typeAnimation }) => (typeAnimation ? 1 : 0)};
-        ${({ animated, typeAnimation }) => ((animated && typeAnimation === 'moveDown') ? css`animation: ${moveDown} 1.6s ease-in-out` : null)}
+        ${({ animated, typeAnimation }) => ((animated && typeAnimation === 'move') ? css`animation: ${moveDown} 1.6s ease-in-out` : null)}
     }
 `;
 

@@ -3,15 +3,17 @@ import mailIcon from '../../assets/images/icons/envelope.svg';
 import linkedinIcon from '../../assets/images/icons/linkedin.svg';
 import githubIcon from '../../assets/images/icons/github.svg';
 
-import { Container, ContentContainer } from './styles';
+import {
+  Container, ContentContainer, CopyrightContainer, LinksContainer,
+} from './styles';
 
 export default function Footer() {
   return (
     <Container>
       <ContentContainer>
-        <div className="copyrightContainer">
+        <CopyrightContainer>
           <img src={copyright} alt="Copyright" />
-          <div>
+          <div className="textCopy">
             <p>
               Direitos de imagem para Nintendo
             </p>
@@ -19,9 +21,9 @@ export default function Footer() {
               Dados pegos da API - pokeapi.co
             </p>
           </div>
-        </div>
+        </CopyrightContainer>
 
-        <div className="linksContainer">
+        <LinksContainer>
           <a href="mailto:ali.hps@hotmail.com">
             <img src={mailIcon} alt="Mail" />
           </a>
@@ -31,7 +33,7 @@ export default function Footer() {
           <a href="https://www.github.com/alihpss" target="_blank" rel="noreferrer">
             <img src={githubIcon} alt="GitHub" />
           </a>
-        </div>
+        </LinksContainer>
 
       </ContentContainer>
     </Container>

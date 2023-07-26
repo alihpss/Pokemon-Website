@@ -14,7 +14,8 @@ import {
   PokedexContainer,
 } from './styles';
 
-import { FavoritesPokemonList } from '../../Context';
+import { FavoritesPokemonList } from '../../context/PokemonFavoritesProvider';
+
 import delay from '../../utils/delay';
 import PokemonsService from '../../services/PokemonsService';
 import Loader from '../../components/Loader';

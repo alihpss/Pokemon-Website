@@ -24,7 +24,7 @@ export default function PokemonFavoritesProvider({ children }) {
     localStorage.setItem('name', JSON.stringify(newPokemonFavoritesList));
   };
 
-  // Utiliza o useMemo para evitar re-render desnecessários
+  // Utiliza o useMemo para evitar re-render desnecessário
   const value = useMemo(
     () => (
       {

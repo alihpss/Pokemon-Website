@@ -9,8 +9,8 @@ export const Container = styled.div`
         font-size: 15px;
         text-transform: uppercase;
         font-weight: bolder;
-        text-shadow: 0px 0px 2px #000;
-        color: ${({ theme }) => theme.colors.background};
+        text-shadow: 0px 0px 1px #000;
+        color: ${({ propertyColor }) => propertyColor};
     }
 
     div {
@@ -22,13 +22,17 @@ export const Container = styled.div`
         width: 65%;
         height: 10px;
         position: relative;
-        background-color: rgba(0,0,0, 0.4);
+        background-color: rgba(0,0,0, 0.2);
         margin-top: 0;
 
         div {
             margin-top: 0;
-            background-color: rgba(70, 255, 63, 0.72);
             height: 10px;
+            background-color: ${({ propertyColor }) => (
+    propertyColor === '#f6f5fc'
+      ? 'rgba(70, 255, 63, 0.72)'
+      : propertyColor
+  )};
         }
 
         ul {

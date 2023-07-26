@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.footer`
     background: ${({ theme }) => theme.colors.pokedexBackground};
-    padding: 2rem 0;
+    padding: 3rem 0;
     color: #FFF;
 `;
 
@@ -11,12 +11,29 @@ export const ContentContainer = styled.div`
     max-width: 1100px;
     margin: auto;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
 
-    .copyrightContainer {
-        display: flex;
+    `;
 
-        img {
-            width: 22px;
-        }
+export const CopyrightContainer = styled.div`
+    display: flex;
+
+    img {
+        width: 22px;
+        margin-right: 14px;
+    }
+
+    .textCopy p + p {
+        margin-top: 4px;
+    }
+`;
+
+export const LinksContainer = styled.div`
+    display: flex;
+    gap: 14px;
+
+    img {
+        width: 30px;
     }
 `;

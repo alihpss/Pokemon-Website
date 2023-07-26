@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import { Container } from './styles';
 
-export default function PokeStats({ stats, numberOfStatsToShow }) {
+export default function PokeStats({ stats, numberOfStatsToShow, propertyColor }) {
   return (
-    <Container>
+    <Container propertyColor={propertyColor}>
       {stats.slice(0, numberOfStatsToShow).map((stat) => (
         <div key={stat.stat.name}>
           <p>{stat.stat.name}</p>
@@ -33,8 +33,10 @@ PokeStats.propTypes = {
     }),
   ).isRequired,
   numberOfStatsToShow: PropTypes.number,
+  propertyColor: PropTypes.string,
 };
 
 PokeStats.defaultProps = {
   numberOfStatsToShow: 6,
+  propertyColor: '#f6f5fc',
 };

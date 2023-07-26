@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   Container,
@@ -10,9 +10,12 @@ import {
 import logo from '../../assets/images/pokemon-logo.svg';
 import grid from '../../assets/images/icons/grid-menu.svg';
 import ProfileModal from '../ProfileModal';
+import { HeaderColor } from '../../context/HeaderColorProvider';
 
 export default function Header() {
   const [openMenuProfile, setOpenMenuProfile] = useState(false);
+
+  const { color } = useContext(HeaderColor);
 
   function handleOpenMenuProfile() {
     setOpenMenuProfile(true);
@@ -29,19 +32,19 @@ export default function Header() {
       </LogoContainer>
 
       <NavigationContainer>
-        <NavigationItem>
+        <NavigationItem headerColor={color}>
           <Link to="/">
             Home
           </Link>
         </NavigationItem>
 
-        <NavigationItem>
+        <NavigationItem headerColor={color}>
           <Link to="/pokedex">
             Pokedex
           </Link>
         </NavigationItem>
 
-        <NavigationItem>
+        <NavigationItem headerColor={color}>
           <button type="button" onClick={handleOpenMenuProfile}>
             <img src={grid} alt="menu" />
           </button>

@@ -1,40 +1,43 @@
 import { useEffect, useRef, useState } from 'react';
 
-export default function useCarrouselHome(carrouselInformation) {
+export default function useCarrouselHome(carrouselInformation = [], initialValue = 0) {
   const [animation, setAnimation] = useState('');
-  const [counter, setCounter] = useState(0);
+  const [counter, setCounter] = useState(initialValue);
   const [hasAnimation, setHasAnimation] = useState(false);
 
   const element = useRef(null);
 
+  function handleDisableAnimation() {
+    setHasAnimation(false);
+  }
+
   useEffect(() => {
     const carrouselElement = element.current;
-
-    function handleDisableAnimation() {
-      setHasAnimation(false);
-    }
 
     if (carrouselElement) {
       carrouselElement.addEventListener('animationend', handleDisableAnimation);
     }
 
-    setAnimation('');
+    if (animation) {
+      setAnimation('');
+    }
 
-    return (() => {
+    return () => {
       carrouselElement.removeEventListener('animationend', handleDisableAnimation);
-    });
-  }, [counter]);
+    };
+  }, [counter, initialValue]);
 
-  const newBackgroundColor = carrouselInformation[counter].color;
+  const newBackgroundColor = carrouselInformation.length > 0 ? carrouselInformation[counter]?.color : '';
 
   return {
     animation,
-    newBackgroundColor,
-    element,
     setAnimation,
-    setHasAnimation,
     hasAnimation,
+    setHasAnimation,
     counter,
+    element,
     setCounter,
+    newBackgroundColor,
+    handleDisableAnimation,
   };
 }

@@ -1,7 +1,6 @@
 import { useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import {
-  ColumnSkew,
   Container,
   ImageContainer,
   LeftContent,
@@ -15,7 +14,8 @@ import charmander from '../../assets/images/black-charmander.png';
 import squirtle from '../../assets/images/squirtle.png';
 
 import circle from '../../assets/images/icons/circle-fill.svg';
-import useCarrouselHome from './useCarrouselHome';
+import useCarrouselImageAnimation from '../../utils/useCarrouselImageAnimation';
+import ColumnSkew from '../../components/ColumnSkew';
 
 export default function Home() {
   const carrouselInformation = [
@@ -33,7 +33,7 @@ export default function Home() {
     setAnimation,
     counter,
     setCounter,
-  } = useCarrouselHome(carrouselInformation);
+  } = useCarrouselImageAnimation(carrouselInformation);
 
   const handleChangeImageCarrousel = useCallback((id) => {
     setHasAnimation(true);
@@ -49,7 +49,7 @@ export default function Home() {
   }, [counter]);
 
   function setTypeOfAnimation() {
-    setAnimation('moveDown');
+    setAnimation('move');
   }
 
   useEffect(() => {

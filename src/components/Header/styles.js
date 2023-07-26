@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Container = styled.header`
     display: flex;
@@ -34,7 +34,7 @@ export const NavigationItem = styled.div`
 
     a {
         font-size: 18px;
-        color: ${({ theme }) => theme.colors.background};
+        color: ${({ theme }) => (theme.colors.background)};
     }
 
     button {
@@ -44,12 +44,25 @@ export const NavigationItem = styled.div`
         align-items: center;
     }
 
-    & + & {
-        margin-left: 0.5rem;
+    &:nth-child(3) button img {
+        background-color: transparent;
     }
 
     &:last-child {
         padding: 0;
-        margin-left: 1.8rem;
+        margin-left: 0.8rem;
     }
+
+    ${({ headerColor }) => headerColor && css`
+    transition: 2s;
+
+    &:nth-child(3) button img {
+        background-color: ${headerColor};
+    }
+
+    a {
+        color: ${headerColor};
+        font-weight: bolder;
+    }
+    `};
 `;

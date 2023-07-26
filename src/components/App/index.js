@@ -8,6 +8,7 @@ import Global from '../../assets/styles/global';
 
 import Header from '../Header';
 import Routes from '../../routes';
+import HeaderColorProvider from '../../context/HeaderColorProvider';
 
 export default function App() {
   return (
@@ -15,8 +16,11 @@ export default function App() {
       <ThemeProvider theme={defaultTheme}>
 
         <Global />
-        <Header />
-        <Routes />
+
+        <HeaderColorProvider>
+          <Header />
+          <Routes />
+        </HeaderColorProvider>
 
       </ThemeProvider>
     </BrowserRouter>
