@@ -81,12 +81,106 @@ export const LeftContent = styled.div`
 export const InfoContainer = styled.div`
     width: 45%;
 
-    h1 {
-        ${({ type, theme }) => type && css`
-            color: ${theme.typeColors[type]};
-            text-transform: capitalize;
-            font-size: max(22px, min(6vw, 55px));
-            text-shadow: 0px 0px 1px #010101;
-        `}
+    .nameAndFavoriteLogo {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+
+        & + div {
+            margin-top: 4rem;
+        }
+
+        div {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            button {
+                background: none;
+                border: none;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 4vw;
+                max-width: 40px;
+
+                &:active {
+                    transform: scale(0.9);
+                }
+
+                img {
+                    margin-top: 2px;
+                    width: 100%;
+
+                }
+            }
+
+            p {
+                font-size: max(8px,min(2vw,12px));
+                color: ${({ theme }) => theme.colors.danger};
+                font-weight: bolder;
+            }
+        }
+
+
+
+        h1 {
+            ${({ type, theme }) => type && css`
+                color: ${theme.typeColors[type]};
+                text-transform: capitalize;
+                font-size: max(22px, min(6vw, 55px));
+                text-shadow: 0px 0px 1px #010101;
+            `}
+        }
+    }
+
+`;
+
+export const ControllerContainer = styled.div`
+    position: absolute;
+    background-color: aqua;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    height: 0px;
+
+    button {
+        background: none;
+        border: none;
+        &:active {
+            transform: scale(0.9);
+        }
+
+        img {
+            width: 44px;
+        }
+    }
+`;
+
+export const WeaknessesContainer = styled.div`
+    margin: 4rem auto 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    p + div {
+        display: flex;
+        justify-content: center;
+        gap: 0 8px;
+        flex-wrap: wrap;
+        margin-left: 18px;
+    }
+
+    div div {
+        height: 35px;
+        margin-top: 0;
+    }
+
+    & > p {
+        font-weight: 500;
     }
 `;

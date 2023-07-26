@@ -25,12 +25,13 @@ import PokemonItems from '../../components/PokemonItems';
 import Input from '../../components/Input';
 import exportTypeIcons from '../../utils/exportTypeIcons';
 import TypeItems from '../../components/TypeItems';
+import Footer from '../../components/Footer';
+import toast from '../../utils/toast';
 
 import pikachu from '../../assets/images/pikachu.png';
 import notFound from '../../assets/images/not-Found.png';
 import searchIcon from '../../assets/images/icons/search.svg';
 import heartbreak from '../../assets/images/icons/heartbreak.svg';
-import Footer from '../../components/Footer';
 
 export default function Pokedex() {
   const [counter, setCounter] = useState({
@@ -188,11 +189,15 @@ export default function Pokedex() {
   }
 
   function handleRemoveFavoritePokemon(id) {
-    const newFavoritesPokemonList = pokemonFavoritesByLS.filter((idPokemon) => (
-      idPokemon !== id
+    const newFavoritesPokemonList = pokemonFavoritesByLS.filter((pokemonId) => (
+      pokemonId !== id
     ));
 
     renewPokemonFavoritesByLS(newFavoritesPokemonList);
+    toast({
+      type: 'danger',
+      text: 'Pokemon has been removed from favorites',
+    });
   }
 
   function handleSetNewPokemonList(valueToIncrease) {
@@ -344,7 +349,7 @@ export default function Pokedex() {
           controllerRemoveIndex={handleControllerPaginationLessOne}
           isDisabled={totalRequests.value >= 13}
         />
-        <button type="button" onClick={() => updatePokemonFavoritesByLS(Math.floor(Math.random() * 1000) + 1)}>update</button>
+        <button type="button" onClick={() => updatePokemonFavoritesByLS(1)}>update</button>
 
       </PokedexContainer>
 

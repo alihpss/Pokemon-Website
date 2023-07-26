@@ -20,6 +20,10 @@ class PokemonsService {
   getPokemonEvolutionInfo(id) {
     return this.httpClient.get(`evolution-chain${id}`);
   }
+
+  getPokemonTypeInfo(name) {
+    return this.httpClient.get(`type/${name}`);
+  }
 }
 
 export default new PokemonsService();
