@@ -48,30 +48,24 @@ export default function Pokedex() {
   const [pokemonRequisitionToDoList, setPokemonRequisitionToDoList] = useState();
   const [pokemonList, setPokemonList] = useState();
   const [searchName, setSearchName] = useState('');
-  const [searchByType, setSearchByType] = useState('');
+  const [searchByType, setSearchByType] = useState('all');
 
   const isMountedRef = useRef(true);
   const valueOfNameFilter = useRef();
 
   const {
     pokemonFavoritesByLS,
-    updatePokemonFavoritesByLS,
     renewPokemonFavoritesByLS,
   } = useContext(FavoritesPokemonList);
 
   const filteredPokemons = useMemo(() => {
-    if (searchByType && searchByType !== 'all') {
-      return pokemonList?.filter((pokemon) => (
-        pokemon.types[0].type.name === searchByType || pokemon.types[1]?.type.name === searchByType
-      ));
-    }
     if (!searchName) {
       return pokemonList;
     }
 
     return pokemonList?.filter((pokemon) => (
       pokemon.name.toLowerCase().includes(searchName.toLowerCase())));
-  }, [pokemonList, searchName, searchByType]);
+  }, [pokemonList, searchName]);
 
   const fetchPokemon = useCallback(async () => {
     try {
@@ -89,7 +83,8 @@ export default function Pokedex() {
   const fetchPokemonList = useCallback(async () => {
     setIsLoading(true);
     if (pokemonRequisitionToDoList) {
-      const pokemonListDestructuring = pokemonRequisitionToDoList.results.map(({ name }) => name);
+      const pokemonListResults = pokemonRequisitionToDoList.results || pokemonRequisitionToDoList;
+      const pokemonListDestructuring = pokemonListResults.map(({ name }) => name);
 
       const pokemonResolvedRequisitionList = await Promise.all(
         pokemonListDestructuring.map(async (pokemonItem) => {
@@ -153,38 +148,32 @@ export default function Pokedex() {
     }
   }
 
-  function handleUpdateSearchByType(type) {
-    if ((!type && totalRequests.value === 12)
-     || (type.toLowerCase() === searchByType.toLowerCase())) {
+  async function handleUpdateSearchByType(type) {
+    if (type === searchByType || (type === 'all' && searchByType === '')) {
       return;
     }
 
-    setIsLoading(true);
-    setSearchName('');
-    setSearchByType(type.toLowerCase());
+    if (type === 'all') {
+      setSearchByType('all');
+      fetchPokemon();
+      return;
+    }
 
-    if (!type || type === 'all') {
-      setCounter((prevState) => ({
-        ...prevState,
-        index: 0,
-      }));
+    try {
+      const types = await PokemonsService.getPokemonType(type);
 
-      setTotalRequests((prevState) => ({
-        ...prevState,
-        value: 12,
-        index: 0,
-      }));
-    } else {
-      setCounter((prevState) => ({
-        ...prevState,
-        index: 0,
-        value: 0,
-      }));
-      setTotalRequests((prevState) => ({
-        ...prevState,
-        value: 350,
-        index: 0,
-      }));
+      const allPokemonsOfType = [];
+      for (let index = 0; index < 30; index += 1) {
+        const pokemonOfType = types.pokemon[index].pokemon;
+
+        allPokemonsOfType.push(pokemonOfType);
+      }
+
+      setSearchName('');
+      setSearchByType(type.toLowerCase());
+      setPokemonRequisitionToDoList(allPokemonsOfType);
+    } catch (error) {
+
     }
   }
 
@@ -325,7 +314,7 @@ export default function Pokedex() {
                 </p>
                 <TypeItems typeName={searchByType} />
               </div>
-              <button type="button" onClick={() => handleUpdateSearchByType('')}>
+              <button type="button" onClick={() => handleUpdateSearchByType('all')}>
                 <span>Reset filter</span>
               </button>
             </>
@@ -347,12 +336,9 @@ export default function Pokedex() {
           onClick={handleSetNewPokemonList}
           controllerAddIndex={handleControllerPaginationAddOne}
           controllerRemoveIndex={handleControllerPaginationLessOne}
-          isDisabled={totalRequests.value >= 13}
+          isDisabled={totalRequests.value >= 13 || searchByType !== 'all'}
         />
-        <button type="button" onClick={() => updatePokemonFavoritesByLS(1)}>update</button>
-
       </PokedexContainer>
-
       <Footer />
     </Container>
   );

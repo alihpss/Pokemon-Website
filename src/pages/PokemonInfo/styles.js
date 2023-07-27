@@ -80,15 +80,15 @@ export const LeftContent = styled.div`
 
 export const InfoContainer = styled.div`
     width: 45%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 
     .nameAndFavoriteLogo {
         display: flex;
         align-items: center;
         justify-content: space-evenly;
-
-        & + div {
-            margin-top: 4rem;
-        }
+        margin-top: 1vh;
 
         div {
             display: flex;
@@ -120,6 +120,7 @@ export const InfoContainer = styled.div`
                 font-size: max(8px,min(2vw,12px));
                 color: ${({ theme }) => theme.colors.danger};
                 font-weight: bolder;
+                text-align: center;
             }
         }
 
@@ -162,7 +163,7 @@ export const ControllerContainer = styled.div`
 `;
 
 export const WeaknessesContainer = styled.div`
-    margin: 4rem auto 0 auto;
+    margin: 4vh auto 0 auto;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -170,7 +171,7 @@ export const WeaknessesContainer = styled.div`
     p + div {
         display: flex;
         justify-content: center;
-        gap: 0 8px;
+        gap: 8px;
         flex-wrap: wrap;
         margin-left: 18px;
     }

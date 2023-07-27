@@ -66,6 +66,26 @@ export default function PokemonInfo() {
 
   const splitString = (object, string) => object.split(string)[1];
 
+  function getAllSpeciesNames(evolutionChain) {
+    const speciesNames = [];
+
+    function traverseEvolutionChain(evolution) {
+      if (evolution.species && evolution.species.name) {
+        speciesNames.push(evolution.species.name);
+      }
+
+      if (evolution.evolves_to && evolution.evolves_to.length > 0) {
+        evolution.evolves_to.forEach((evolvesTo) => {
+          traverseEvolutionChain(evolvesTo);
+        });
+      }
+    }
+
+    traverseEvolutionChain(evolutionChain);
+
+    return speciesNames;
+  }
+
   const handleAddPokemonToFavoriteList = (pokemonId) => {
     const pokemonExistsInFavoriteList = pokemonFavoritesByLS;
 
@@ -108,10 +128,10 @@ export default function PokemonInfo() {
         const { url } = specieData.evolution_chain;
 
         const evolutionData = await PokemonsService.getPokemonEvolutionInfo(splitString(url, 'evolution-chain'));
-        const typesData = await PokemonsService.getPokemonTypeInfo(name);
+        const typesData = await PokemonsService.getPokemonType(name);
 
         setPokemon(pokemonInfo);
-        setEvolutionInfo(evolutionData);
+        setEvolutionInfo(getAllSpeciesNames(evolutionData.chain));
         setTypeInfo(typesData);
       } catch (error) {
         console.log(error);
@@ -143,9 +163,6 @@ export default function PokemonInfo() {
   useEffect(() => {
     setIdPokemon(id);
   }, [id]);
-
-  console.log(evolutionInfo);
-  console.log(typeInfo);
 
   return (
     <Container type={pokemon.types && pokemon?.types[0].type.name}>
@@ -221,7 +238,7 @@ export default function PokemonInfo() {
             ))}
           </div>
         </WeaknessesContainer>
-        <EvolutionInfoContainer />
+        <EvolutionInfoContainer arrayOfEvolutionDetails={evolutionInfo} />
       </InfoContainer>
     </Container>
   );

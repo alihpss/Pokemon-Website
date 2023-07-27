@@ -21,7 +21,7 @@ class PokemonsService {
     return this.httpClient.get(`evolution-chain${id}`);
   }
 
-  getPokemonTypeInfo(name) {
+  getPokemonType(name) {
     return this.httpClient.get(`type/${name}`);
   }
 }
