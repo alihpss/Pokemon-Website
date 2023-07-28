@@ -185,3 +185,74 @@ export const WeaknessesContainer = styled.div`
         font-weight: 500;
     }
 `;
+
+export const ErrorContainer = styled.div`
+    width: 100vw;
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &::after {
+        content: '';
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -2;
+        background-color: ${({ theme }) => theme.colors.pokedexBackground}
+    }
+`;
+
+export const ModalErrorMessage = styled.div`
+    width: 100%;
+    max-width: 600px;
+    background-color: ${({ theme }) => theme.colors.background};
+    border-radius: 7px;
+    padding: 16px 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0px 0px 5px 0px #000;
+
+    img {
+        max-width: 70%;
+    }
+
+    .actions {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0 12px;
+        margin-top: 8px;
+
+        a, button {
+            background-color: #000;
+            font-size: 16px;
+            color: #FFF;
+            font-weight: bolder;
+            border: ${({ theme }) => `1px solid ${theme.colors.pokedexBackground}`};
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-family: 'Sora', serif;
+            transition: all 0.4s ease-in-out;
+
+            &:hover {
+                color: ${({ theme }) => theme.colors.pokedexBackground};
+                background-color: #FFF;
+                box-shadow: 0px 0px 2px 0px #000;
+            }
+
+            &:active {
+                transform: scale(0.98);
+            }
+        }
+
+        a {
+            background-color: ${({ theme }) => theme.colors.pokedexBackground};
+        }
+    }
+`;

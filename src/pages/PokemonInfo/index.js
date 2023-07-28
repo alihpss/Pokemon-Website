@@ -1,8 +1,16 @@
-import { useParams, useHistory } from 'react-router-dom';
-import { useContext, useEffect, useState } from 'react';
+import { useParams, useHistory, Link } from 'react-router-dom';
+import {
+  useCallback, useContext, useEffect, useState,
+} from 'react';
 
 import {
-  Container, ControllerContainer, InfoContainer, LeftContent, WeaknessesContainer,
+  Container,
+  ControllerContainer,
+  ErrorContainer,
+  InfoContainer,
+  LeftContent,
+  ModalErrorMessage,
+  WeaknessesContainer,
 } from './styles';
 
 import PokemonsService from '../../services/PokemonsService';
@@ -23,6 +31,7 @@ import heart from '../../assets/images/icons/heart-fill.svg';
 import heartbreak from '../../assets/images/icons/heartbreak.svg';
 import caretL from '../../assets/images/icons/caret-left.svg';
 import caretR from '../../assets/images/icons/caret-right.svg';
+import notFound from '../../assets/images/not-Found.png';
 
 export default function PokemonInfo() {
   const { id } = useParams();
@@ -33,6 +42,7 @@ export default function PokemonInfo() {
   const [evolutionInfo, setEvolutionInfo] = useState([]);
   const [typeInfo, setTypeInfo] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
 
   const {
     setCounter,
@@ -112,42 +122,41 @@ export default function PokemonInfo() {
     });
   };
 
-  useEffect(() => {
-    setCounter(id);
-  }, [id]);
+  const getPokemonData = useCallback(async () => {
+    setIsLoading(true);
+    try {
+      const pokemonInfo = await PokemonsService.getPokemonById(idPokemon);
+      const { species } = pokemonInfo;
+      const { name } = pokemonInfo.types[0].type;
 
-  useEffect(() => {
-    async function getPokemonData() {
-      setIsLoading(true);
-      try {
-        const pokemonInfo = await PokemonsService.getPokemonById(idPokemon);
-        const { species } = pokemonInfo;
-        const { name } = pokemonInfo.types[0].type;
+      const specieData = await PokemonsService.getPokemonSpecieInfo(splitString(species.url, 'species'));
+      const { url } = specieData.evolution_chain;
 
-        const specieData = await PokemonsService.getPokemonSpecieInfo(splitString(species.url, 'species'));
-        const { url } = specieData.evolution_chain;
+      const evolutionData = await PokemonsService.getPokemonEvolutionInfo(splitString(url, 'evolution-chain'));
+      const typesData = await PokemonsService.getPokemonType(name);
 
-        const evolutionData = await PokemonsService.getPokemonEvolutionInfo(splitString(url, 'evolution-chain'));
-        const typesData = await PokemonsService.getPokemonType(name);
-
-        setPokemon(pokemonInfo);
-        setEvolutionInfo(getAllSpeciesNames(evolutionData.chain));
-        setTypeInfo(typesData);
-      } catch (error) {
-        console.log(error);
-        console.log(pokemon);
-        console.log(evolutionInfo);
-      } finally {
-        setIsLoading(false);
-      }
+      setPokemon(pokemonInfo);
+      setEvolutionInfo(getAllSpeciesNames(evolutionData.chain));
+      setTypeInfo(typesData);
+      setHasError(false);
+    } catch {
+      setHasError(true);
+    } finally {
+      setIsLoading(false);
     }
+  }, [idPokemon]);
 
+  useEffect(() => {
     getPokemonData();
-
     return () => {
       updateColor(null);
     };
-  }, [idPokemon]);
+  }, [getPokemonData]);
+
+  useEffect(() => {
+    setCounter(id);
+    setIdPokemon(id);
+  }, [id]);
 
   useEffect(() => {
     if (pokemon.types) {
@@ -160,86 +169,106 @@ export default function PokemonInfo() {
     setHasAnimation(true);
   }
 
-  useEffect(() => {
-    setIdPokemon(id);
-  }, [id]);
-
   return (
-    <Container type={pokemon.types && pokemon?.types[0].type.name}>
-      <ControllerContainer>
-        <button type="button" onClick={handlePreviousPokemon}>
-          <img src={caretL} alt="Go to left" />
-        </button>
-
-        <button type="button" onClick={handleNextPokemon}>
-          <img src={caretR} alt="Go to right" />
-        </button>
-      </ControllerContainer>
+    <>
       <Loader isLoading={isLoading} />
-      <LeftContent
-        animated={hasAnimation}
-        typeAnimation={animation}
-      >
-        <div className="pokemonImage">
-          <img
-            src={pokemon.sprites?.other.home.front_default}
-            alt="Pokemon"
-            ref={element}
-            onLoad={setTypeOfAnimation}
-          />
-        </div>
-        <div className="types">
-          {pokemon?.types?.map((type) => (
-            <TypeItems
-              key={type.type.name}
-              typeName={type.type.name}
-            />
-          ))}
-        </div>
-      </LeftContent>
-      <ColumnSkew invert />
-
-      <InfoContainer type={pokemon.types && pokemon?.types[0].type.name}>
-        <div className="nameAndFavoriteLogo">
-          <h1>{pokemon.name}</h1>
-          <div>
-            {pokemonFavoritesByLS.includes(pokemon.id) && (
-            <>
-              <button type="button" onClick={() => handleRenewPokemonFavoriteList(pokemon.id)}>
-                <img src={heartbreak} alt="Favorite logo" />
-              </button>
-              <p>Remove of favorites list</p>
-            </>
-            )}
-            {!pokemonFavoritesByLS.includes(pokemon.id) && (
-            <>
-              <button type="button" onClick={() => handleAddPokemonToFavoriteList(pokemon.id)}>
-                <img src={heart} alt="Favorite logo" />
-              </button>
-              <p>Add to favorites list</p>
-            </>
-            )}
+      {hasError && (
+      <ErrorContainer>
+        <ModalErrorMessage>
+          <h2>
+            Sorry, we cannot found this pokemon.
+          </h2>
+          <img src={notFound} alt="Not found" />
+          <div className="actions">
+            <Link to="/">
+              Go to home
+            </Link>
+            <span>or</span>
+            <button type="button" onClick={() => getPokemonData()}>
+              Try again
+            </button>
           </div>
-        </div>
-        {pokemon.types && (
-        <PokeStats
-          stats={pokemon.stats}
-          propertyColor={defaultTheme.typeColors[pokemon.types[0].type.name]}
-        />
-        )}
-        <WeaknessesContainer type={pokemon.types && pokemon?.types[0].type.name}>
-          <p>Weaknesses:</p>
-          <div>
-            {typeInfo?.damage_relations?.double_damage_from?.map((damagefrom) => (
+        </ModalErrorMessage>
+      </ErrorContainer>
+      )}
+
+      {!hasError && (
+      <Container type={pokemon.types && pokemon?.types[0].type.name}>
+        <ControllerContainer>
+          <button type="button" onClick={handlePreviousPokemon}>
+            <img src={caretL} alt="Go to left" />
+          </button>
+
+          <button type="button" onClick={handleNextPokemon}>
+            <img src={caretR} alt="Go to right" />
+          </button>
+        </ControllerContainer>
+        <LeftContent
+          animated={hasAnimation}
+          typeAnimation={animation}
+        >
+          <div className="pokemonImage">
+            <img
+              src={pokemon.sprites?.other.home.front_default}
+              alt="Pokemon"
+              ref={element}
+              onLoad={setTypeOfAnimation}
+            />
+          </div>
+          <div className="types">
+            {pokemon?.types?.map((type) => (
               <TypeItems
-                key={damagefrom.name}
-                typeName={damagefrom.name}
+                key={type.type.name}
+                typeName={type.type.name}
               />
             ))}
           </div>
-        </WeaknessesContainer>
-        <EvolutionInfoContainer arrayOfEvolutionDetails={evolutionInfo} />
-      </InfoContainer>
-    </Container>
+        </LeftContent>
+        <ColumnSkew invert />
+
+        <InfoContainer type={pokemon.types && pokemon?.types[0].type.name}>
+          <div className="nameAndFavoriteLogo">
+            <h1>{pokemon.name}</h1>
+            <div>
+              {pokemonFavoritesByLS.includes(pokemon.id) && (
+              <>
+                <button type="button" onClick={() => handleRenewPokemonFavoriteList(pokemon.id)}>
+                  <img src={heartbreak} alt="Favorite logo" />
+                </button>
+                <p>Remove of favorites list</p>
+              </>
+              )}
+              {!pokemonFavoritesByLS.includes(pokemon.id) && (
+              <>
+                <button type="button" onClick={() => handleAddPokemonToFavoriteList(pokemon.id)}>
+                  <img src={heart} alt="Favorite logo" />
+                </button>
+                <p>Add to favorites list</p>
+              </>
+              )}
+            </div>
+          </div>
+          {pokemon.types && (
+          <PokeStats
+            stats={pokemon.stats}
+            propertyColor={defaultTheme.typeColors[pokemon.types[0].type.name]}
+          />
+          )}
+          <WeaknessesContainer type={pokemon.types && pokemon?.types[0].type.name}>
+            <p>Weaknesses:</p>
+            <div>
+              {typeInfo?.damage_relations?.double_damage_from?.map((damagefrom) => (
+                <TypeItems
+                  key={damagefrom.name}
+                  typeName={damagefrom.name}
+                />
+              ))}
+            </div>
+          </WeaknessesContainer>
+          <EvolutionInfoContainer arrayOfEvolutionDetails={evolutionInfo} />
+        </InfoContainer>
+      </Container>
+      )}
+    </>
   );
 }
