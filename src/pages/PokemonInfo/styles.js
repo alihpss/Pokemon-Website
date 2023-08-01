@@ -10,7 +10,19 @@ const moveAnimation = keyframes`
             transform: translateX(0);
             opacity: 1;
         }
- `;
+`;
+
+const modalErrorAnimation = keyframes`
+    from {
+        transform: translateY(-100px);
+        opacity: 0;
+    }
+
+    to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+`;
 
 export const Container = styled.div`
     display: flex;
@@ -207,18 +219,20 @@ export const ErrorContainer = styled.div`
 
 export const ModalErrorMessage = styled.div`
     width: 100%;
-    max-width: 600px;
+    max-width: 900px;
     background-color: ${({ theme }) => theme.colors.background};
     border-radius: 7px;
-    padding: 16px 0;
+    padding: 20px 0;
     display: flex;
     justify-content: center;
     flex-direction: column;
     align-items: center;
     box-shadow: 0px 0px 5px 0px #000;
+    animation: ${modalErrorAnimation} 1s ease-in-out;
 
     img {
         max-width: 70%;
+        animation: ${modalErrorAnimation} 1.4s ease-in;
     }
 
     .actions {

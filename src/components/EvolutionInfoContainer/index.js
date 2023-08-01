@@ -1,7 +1,6 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import delay from '../../utils/delay';
 import PokemonsService from '../../services/PokemonsService';
 
 import defaultTheme from '../../assets/styles/themes/default';
@@ -19,15 +18,14 @@ export default function EvolutionInfoContainer({ arrayOfEvolutionDetails }) {
   const pokemonData = useCallback(async () => {
     setIsLoading(true);
     try {
-      const pokemonResolvedRequisitionList = await Promise.all(
+      const pokemonResolvedEvolution = await Promise.all(
         arrayOfEvolutionDetails.map(async (pokemonItem) => {
-          await delay(5000);
           const response = await PokemonsService.getPokemonById(pokemonItem);
           return response;
         }),
       );
 
-      setPokemonEvolutionInfo(pokemonResolvedRequisitionList);
+      setPokemonEvolutionInfo(pokemonResolvedEvolution);
     } catch (error) {
 
     } finally {
@@ -55,6 +53,9 @@ export default function EvolutionInfoContainer({ arrayOfEvolutionDetails }) {
     <Container>
       <p>Evolution: </p>
       <Loader isLoading={isLoading} size={60} />
+      {(pokemonEvolutionInfo.length === 0 && !isLoading) && (
+        <span style={{ fontWeight: '700' }}>Pokemon has no evolution.</span>
+      )}
       {pokemonEvolutionInfo.map((pokemon) => (
         <PokemonContainer
           key={pokemon.id}

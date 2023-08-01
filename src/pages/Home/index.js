@@ -72,11 +72,13 @@ export default function Home() {
             is a Japanese media franchise managed by the Pokemon Company,
             a company founded by Nintendo.
           </p>
-          <Link to="/pokedex">
-            <button type="button" style={{ backgroundColor: newBackgroundColor }}>
-              Go to Pokedex
-            </button>
-          </Link>
+          <div className="buttonLink">
+            <Link to="/pokedex">
+              <button type="button" style={{ backgroundColor: newBackgroundColor }}>
+                Go to Pokedex
+              </button>
+            </Link>
+          </div>
         </TextContainer>
 
         <ImagesLeftContentContainer>

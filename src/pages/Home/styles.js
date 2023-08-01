@@ -46,45 +46,51 @@ export const TextContainer = styled.div`
     margin-top: 1rem;
 
     h1 {
-        font-size: 2.1rem;
+        font-size: 4vw;
     }
 
     p {
-        font-size: 1rem;
+        font-size: max(1.1vw, min(16px, 14px));
         max-width: 600px;
         margin-top: 20px;
     }
 
-    button {
-        padding: 8px 16px;
-        margin-top: 20px;
-        border-radius: 14px;
-        border: none;
-        box-shadow: 1px 0px 8px -1px rgba(0,0,0,0.4);
-        font-weight: 600;
-        transition: all 0.4s ease-in-out;
-        color: #FFF;
+    .buttonLink {
+        display: flex;
+        justify-content: center;
 
-        &:hover {
-            box-shadow: 1px 0px 8px -1px rgba(0,0,0,0.8);
-        }
+        button {
+            padding: 14px 30px;
+            margin-top: 20px;
+            border-radius: 8px;
+            border: none;
+            box-shadow: 1px 0px 8px -1px rgba(0,0,0,0.4);
+            font-weight: 700;
+            transition: all 0.4s ease-in-out;
+            color: #FFF;
 
-        &:active {
-            opacity: 0.8;
+            &:hover {
+                box-shadow: 1px 0px 8px -1px rgba(0,0,0,0.8);
+            }
+
+            &:active {
+                opacity: 0.8;
+            }
         }
     }
+
 `;
 
 export const ImagesLeftContentContainer = styled.div`
     display: flex;
     position: relative;
     justify-content: space-evenly;
-    margin-top: 1rem;
+    margin-top: 0.8rem;
 
     div {
         position: relative;
         width: 45%;
-        height: 9rem;
+        height: 25vh;
         background-color: black;
         background-image: url(${pokeball});
         background-repeat: no-repeat;
