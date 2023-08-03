@@ -10,6 +10,17 @@ export default styled.div`
     transform: translateX(-55%) rotate(4deg);
     z-index: -1;
 
+
+    @media (max-width: 768px){
+        height: 45px;
+        width: calc(100vw + 1.5px);
+        top: 0;
+        left: 0;
+        bottom: 0;
+        margin: auto;
+        transform: translateY(-90%) translateX(0) rotate(-3deg);
+    }
+
     ${({ invert }) => invert && css`
     transform: translateX(-55%) rotate(-4deg);
     `}

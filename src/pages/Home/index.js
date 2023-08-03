@@ -17,6 +17,9 @@ import circle from '../../assets/images/icons/circle-fill.svg';
 import useCarrouselImageAnimation from '../../utils/useCarrouselImageAnimation';
 import ColumnSkew from '../../components/ColumnSkew';
 
+import ashA from '../../assets/images/ash-pikachu.jpg';
+import teste from '../../assets/images/teste.jpg';
+
 export default function Home() {
   const carrouselInformation = [
     { image: squirtle, color: '#6797FA', id: 0 },
@@ -48,7 +51,7 @@ export default function Home() {
     }
   }, [counter]);
 
-  function setTypeOfAnimation() {
+  function imageHasBeenLoaded() {
     setAnimation('move');
   }
 
@@ -82,15 +85,22 @@ export default function Home() {
         </TextContainer>
 
         <ImagesLeftContentContainer>
-          <div />
-          <div />
+          <div className="imagesContainer">
+            <img src={ashA} alt="pokemon" />
+            <p>Learn more about your favorites Pokemon&apos;s.</p>
+          </div>
+
+          <div className="imagesContainer">
+            <img src={teste} alt="pokemon" />
+            <p>See the most popular Pokemon&apos;s in Pokedex.</p>
+          </div>
         </ImagesLeftContentContainer>
       </LeftContent>
 
       <ColumnSkew />
 
       <ImageContainer animated={hasAnimation} typeAnimation={animation}>
-        <img ref={element} src={carrouselInformation[counter].image} alt="Pokemon" onLoad={setTypeOfAnimation} />
+        <img ref={element} src={carrouselInformation[counter].image} alt="Pokemon" onLoad={imageHasBeenLoaded} />
       </ImageContainer>
 
       {carrouselInformation.map((item) => (
