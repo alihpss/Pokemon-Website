@@ -14,6 +14,11 @@ export const Container = styled.div`
     flex-direction: column;
     align-items: center;
     box-shadow: 0px 0px 12px -4px rgb(0,0,0,0.75);
+    transition: all 0.2s ease;
+
+    &:hover {
+        transform: scale(1.1);
+    }
 
     .childrenContainer {
         display: none;
@@ -30,6 +35,11 @@ export const Container = styled.div`
     ${({ type, theme }) => type && css`
         background: linear-gradient(0deg, ${theme.secondaryColors[type]} 10%, ${theme.typeColors[type]} 29%);
     `}
+
+    @media (max-width: 768px){
+        min-width: 255px;
+        margin: 0 1rem;
+    }
 
 `;
 
@@ -93,6 +103,12 @@ export const ImageContainer = styled.div`
     img {
         width: 55%;
         position: relative;
+    }
+
+    @media (max-width: 768px){
+        img {
+            width: 70%;
+        }
     }
 
     ${({ type }) => css`

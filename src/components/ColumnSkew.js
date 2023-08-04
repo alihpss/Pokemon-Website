@@ -12,13 +12,14 @@ export default styled.div`
 
 
     @media (max-width: 768px){
-        height: 45px;
+        height: 40px;
         width: calc(100vw + 1.5px);
         top: 0;
         left: 0;
         bottom: 0;
         margin: auto;
-        transform: translateY(-90%) translateX(0) rotate(-3deg);
+        transform: translateY(-55%) translateX(0) rotate(-2deg);
+        // background: black;
     }
 
     ${({ invert }) => invert && css`

@@ -15,6 +15,10 @@ export const Container = styled.div`
     h2 {
         font-size: 2rem;
     }
+
+    @media (max-width: 768px){
+        background: linear-gradient(180deg, ${({ theme }) => theme.colors.pokedexBackground} 300px, ${({ theme }) => theme.colors.light} 305px);
+    }
 `;
 
 export const ContainerHeader = styled.div`
@@ -59,6 +63,13 @@ export const ContainerHeader = styled.div`
         background-color: ${({ theme }) => theme.colors.pokedexBackground};
         height: 250px;
         z-index: -1;
+    }
+
+    @media (max-width: 768px){
+
+        p {
+            font-size: 18px;
+        }
     }
 `;
 
@@ -147,6 +158,7 @@ export const PokedexContainer = styled.div`
         p {
             font-size: 28px;
             font-weight: bolder;
+            text-align: center;
         }
 
         button {
@@ -258,5 +270,22 @@ export const PokedexContainer = styled.div`
         justify-content: center;
         justify-items: center;
         min-height: 12rem;
+    }
+
+    @media (max-width: 768px){
+
+        .filters {
+            flex-direction: column;
+            gap: 3rem 0;
+            margin-top: 2rem;
+
+            .typesCarousel {
+                width: 80vw;
+            }
+        }
+
+        #pokedexList {
+            margin-top: 1rem;
+        }
     }
 `;

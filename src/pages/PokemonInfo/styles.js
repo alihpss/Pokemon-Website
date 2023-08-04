@@ -43,6 +43,16 @@ export const Container = styled.div`
             background: ${theme.typeColors[type]};
         `}
     }
+
+    @media (max-width: 768px){
+        flex-direction: column;
+        height: 100%;
+
+        &::after {
+            width: 100%;
+            height: 45%;
+        }
+    }
 `;
 
 export const LeftContent = styled.div`
@@ -88,6 +98,28 @@ export const LeftContent = styled.div`
             justify-content: center;
         }
     }
+
+    @media (max-width: 768px){
+        width: 100%;
+        height: 45%;
+
+        .types {
+            position: absolute;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: end;
+            margin-top: 1rem;
+
+            div {
+                width: 80px;
+                margin-right: 15px;
+            }
+        }
+
+        .pokemonImage img {
+            width: 50%;
+        }
+    }
 `;
 
 export const InfoContainer = styled.div`
@@ -116,6 +148,11 @@ export const InfoContainer = styled.div`
                 align-items: center;
                 width: 4vw;
                 max-width: 40px;
+                transition: all 0.2s ease;
+
+                &:hover {
+                    transform: scale(1.1);
+                }
 
                 &:active {
                     transform: scale(0.9);
@@ -124,7 +161,6 @@ export const InfoContainer = styled.div`
                 img {
                     margin-top: 2px;
                     width: 100%;
-
                 }
             }
 
@@ -142,9 +178,33 @@ export const InfoContainer = styled.div`
             ${({ type, theme }) => type && css`
                 color: ${theme.typeColors[type]};
                 text-transform: capitalize;
-                font-size: max(22px, min(6vw, 55px));
+                font-size: max(22px, 6vw);
                 text-shadow: 0px 0px 1px #010101;
             `}
+        }
+    }
+
+    @media (max-width: 768px){
+        width: 100%;
+        margin-top: 4.1rem;
+
+        .nameAndFavoriteLogo {
+            flex-direction: column;
+            gap: 24px 0;
+
+            div button {
+                width: 200px;
+            }
+
+            div p {
+                font-size: 14px;
+            }
+
+            h1 {
+            ${({ type }) => type && css`
+                font-size: 36px;
+            `}
+        }
         }
     }
 
@@ -152,7 +212,6 @@ export const InfoContainer = styled.div`
 
 export const ControllerContainer = styled.div`
     position: absolute;
-    background-color: aqua;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -218,7 +277,7 @@ export const ErrorContainer = styled.div`
 `;
 
 export const ModalErrorMessage = styled.div`
-    width: 100%;
+    width: 95%;
     max-width: 900px;
     background-color: ${({ theme }) => theme.colors.background};
     border-radius: 7px;
@@ -227,6 +286,7 @@ export const ModalErrorMessage = styled.div`
     justify-content: center;
     flex-direction: column;
     align-items: center;
+    text-align: center;
     box-shadow: 0px 0px 5px 0px #000;
     animation: ${modalErrorAnimation} 1s ease-in-out;
 

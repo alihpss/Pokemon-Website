@@ -31,4 +31,11 @@ export const Container = styled.div`
     img {
         margin-right: 12px;
     }
+
+    @media (max-width: 768px){
+        padding: 24px 10px;
+        width: 320px;
+        text-align: center;
+        border-radius: 11px;
+    }
 `;

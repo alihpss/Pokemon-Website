@@ -52,5 +52,17 @@ export const Container = styled.div`
         }
     }
 
+    @media (max-width: 768px){
+        margin-top: 3rem;
+
+        p {
+            font-size: 12px;
+        }
+
+        .statsBar {
+            margin-left: 2px;
+        }
+    }
+
 
 `;

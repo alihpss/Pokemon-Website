@@ -26,6 +26,10 @@ export const NavigationContainer = styled.nav`
     display: flex;
     margin-right: 1.4rem;
     align-items: center;
+
+    @media (max-width: 768px){
+        margin-right: 0;
+    }
 `;
 
 export const NavigationItem = styled.div`
@@ -35,6 +39,15 @@ export const NavigationItem = styled.div`
     a {
         font-size: 18px;
         color: ${({ theme }) => (theme.colors.background)};
+        transition: font-size 0.1s ease;
+
+        &:hover {
+            font-size: 20px;
+        }
+
+        &:active {
+            font-size: 18px;
+        }
     }
 
     button {
@@ -51,6 +64,21 @@ export const NavigationItem = styled.div`
     &:last-child {
         padding: 0;
         margin-left: 0.8rem;
+    }
+
+    @media (max-width: 768px){
+
+        a {
+            color: ${({ theme }) => (theme.colors.background)} !important;
+        }
+
+        button img{
+            background: none !important;
+        }
+
+        &:last-child {
+            margin-left: 0;
+        }
     }
 
     ${({ headerColor }) => headerColor && css`

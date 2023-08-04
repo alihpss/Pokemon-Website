@@ -31,6 +31,15 @@ export const PokemonContainer = styled.div`
     min-width: 100px;
     padding: 2px 0 6px 0;
     background-color: ${({ colorOfType }) => colorOfType};
+    transition: all 0.2s ease;
+
+    &:hover {
+        transform: scale(1.1);
+    }
+
+    &:active {
+        transform: scale(0.9);
+    }
 
     img {
         max-width: 65px;

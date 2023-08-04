@@ -92,6 +92,7 @@ export const TextContainer = styled.div`
             font-weight: 700;
             transition: all 0.4s ease-in-out;
             color: #FFF;
+            font-size: 15px;
 
             &:hover {
                 box-shadow: 1px 0px 8px -1px rgba(0,0,0,0.8);
@@ -105,14 +106,9 @@ export const TextContainer = styled.div`
 
     @media (max-width: 768px){
         text-align: center;
-        margin-top: 0;
 
         .buttonLink {
             margin: 1rem 0;
-
-            button {
-                font-size: 15px;
-            }
         }
     }
 

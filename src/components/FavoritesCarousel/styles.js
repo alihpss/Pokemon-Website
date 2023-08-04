@@ -49,4 +49,10 @@ export const CarouselContainer = styled.div`
     &::-webkit-scrollbar {
         display: none;
     }
+
+    & > div {
+        &:hover {
+            transform: scale(1);
+        }
+    }
 `;
