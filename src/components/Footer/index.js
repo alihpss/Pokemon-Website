@@ -15,10 +15,10 @@ export default function Footer() {
           <img src={copyright} alt="Copyright" />
           <div className="textCopy">
             <p>
-              Direitos de imagem para Nintendo
+              Nintendo&apos;s image rights
             </p>
             <p>
-              Dados pegos da API - pokeapi.co
+              Data collected from API - pokeapi.co
             </p>
           </div>
         </CopyrightContainer>

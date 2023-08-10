@@ -33,6 +33,18 @@ export const LinksContainer = styled.div`
     display: flex;
     gap: 14px;
 
+    a {
+        transition: 0.1s ease-in-out all;
+    }
+
+    a:hover {
+        transform: scale(1.1);
+    }
+
+    a:active {
+        transform: scale(1);
+    }
+
     img {
         width: 30px;
     }

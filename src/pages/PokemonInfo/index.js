@@ -194,15 +194,6 @@ export default function PokemonInfo() {
 
       {!hasError && (
       <Container type={pokemon.types && pokemon?.types[0].type.name}>
-        <ControllerContainer>
-          <button type="button" onClick={handlePreviousPokemon}>
-            <img src={caretL} alt="Go to left" />
-          </button>
-
-          <button type="button" onClick={handleNextPokemon}>
-            <img src={caretR} alt="Go to right" />
-          </button>
-        </ControllerContainer>
         <LeftContent
           animated={hasAnimation}
           typeAnimation={animation}
@@ -228,8 +219,17 @@ export default function PokemonInfo() {
 
         <InfoContainer type={pokemon.types && pokemon?.types[0].type.name}>
           <div className="nameAndFavoriteLogo">
+            <ControllerContainer>
+              <button type="button" onClick={handlePreviousPokemon}>
+                <img src={caretL} alt="Go to left" />
+              </button>
+
+              <button type="button" onClick={handleNextPokemon}>
+                <img src={caretR} alt="Go to right" />
+              </button>
+            </ControllerContainer>
             <h1>{pokemon.name}</h1>
-            <div>
+            <div className="favoriteLogo">
               {pokemonFavoritesByLS.includes(pokemon.id) && (
               <>
                 <button type="button" onClick={() => handleRenewPokemonFavoriteList(pokemon.id)}>

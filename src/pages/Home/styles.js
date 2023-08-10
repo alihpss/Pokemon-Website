@@ -96,10 +96,12 @@ export const TextContainer = styled.div`
 
             &:hover {
                 box-shadow: 1px 0px 8px -1px rgba(0,0,0,0.8);
+                transform: scale(1.1);
             }
 
             &:active {
                 opacity: 0.8;
+                transform: scale(1);
             }
         }
     }

@@ -24,6 +24,10 @@ export const Container = styled.div`
     p {
         margin-right: 0.5rem;
     }
+
+    @media (max-width: 768px){
+        padding: 0px 20px 20px 20px;
+    }
 `;
 
 export const PokemonContainer = styled.div`

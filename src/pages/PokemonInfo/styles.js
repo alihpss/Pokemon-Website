@@ -134,7 +134,7 @@ export const InfoContainer = styled.div`
         justify-content: space-evenly;
         margin-top: 1vh;
 
-        div {
+        .favoriteLogo {
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -187,16 +187,17 @@ export const InfoContainer = styled.div`
     @media (max-width: 768px){
         width: 100%;
         margin-top: 4.1rem;
+        position: relative;
 
         .nameAndFavoriteLogo {
             flex-direction: column;
             gap: 24px 0;
 
-            div button {
+            .favoriteLogo button {
                 width: 200px;
             }
 
-            div p {
+            .favoriteLogo p {
                 font-size: 14px;
             }
 
@@ -217,12 +218,19 @@ export const ControllerContainer = styled.div`
     justify-content: space-between;
     top: 0;
     bottom: 0;
-    margin: auto;
+    left: 0;
     height: 0px;
+    margin: auto;
 
     button {
         background: none;
         border: none;
+        transition: all ease-in-out 0.1s;
+
+        &:hover {
+            transform: scale(1.02);
+        }
+
         &:active {
             transform: scale(0.9);
         }
@@ -230,6 +238,10 @@ export const ControllerContainer = styled.div`
         img {
             width: 44px;
         }
+    }
+
+    @media (max-width: 768px){
+        margin: 1vh 0 0 0;
     }
 `;
 
