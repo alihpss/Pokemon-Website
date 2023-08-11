@@ -51,9 +51,7 @@ export default function Header() {
         </NavigationItem>
       </NavigationContainer>
 
-      {openMenuProfile && (
-      <ProfileModal onClick={handleCloseMenuProfile} />
-      )}
+      <ProfileModal visible={openMenuProfile} onClick={handleCloseMenuProfile} />
 
     </Container>
   );

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.footer`
-    background: ${({ theme }) => theme.colors.pokedexBackground};
+    background: linear-gradient(180deg, #ffecc0 0, ${({ theme }) => theme.colors.pokedexBackground} 2px);
     padding: 3rem 0;
     color: #FFF;
 `;

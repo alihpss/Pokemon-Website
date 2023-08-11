@@ -8,11 +8,26 @@ import profile from '../../assets/images/ali.jpg';
 import mailIcon from '../../assets/images/icons/envelope.svg';
 import linkedinIcon from '../../assets/images/icons/linkedin.svg';
 import githubIcon from '../../assets/images/icons/github.svg';
+import useAnimatedUnmount from '../../Hooks/UseAnimationUnmount';
 
-export default function ProfileModal({ onClick }) {
+export default function ProfileModal({ onClick, visible }) {
+  const { shouldRender, animatedElementRef } = useAnimatedUnmount(visible);
+
+  if (!shouldRender) {
+    return null;
+  }
+
+  let container = document.getElementById('modal-root');
+
+  if (!container) {
+    container = document.createElement('div');
+    container.setAttribute('id', 'modal-root');
+    document.body.appendChild(container);
+  }
+
   return (
-    <ReactPortal containerId="profile-modal">
-      <Container>
+    <ReactPortal containerId="modal-root">
+      <Container isLeaving={!visible} ref={animatedElementRef}>
         <button type="button" onClick={onClick}>
           <img src={closeMenu} alt="Close menu" />
         </button>
@@ -43,4 +58,5 @@ export default function ProfileModal({ onClick }) {
 
 ProfileModal.propTypes = {
   onClick: PropTypes.func.isRequired,
+  visible: PropTypes.bool.isRequired,
 };

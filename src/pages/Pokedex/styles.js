@@ -1,4 +1,28 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
+
+const fadeDown = keyframes`
+    from {
+        opacity: 0;
+        transform: translateY(-100px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+`;
+
+const fadeUp = keyframes`
+    from {
+        opacity: 0;
+        transform: translateY(100px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+`;
 
 export const Container = styled.div`
     background: linear-gradient(180deg, ${({ theme }) => theme.colors.pokedexBackground} 410px, ${({ theme }) => theme.colors.light} 415px);
@@ -34,6 +58,7 @@ export const ContainerHeader = styled.div`
     border-radius: 10px;
     box-shadow: 0px 0px 26px -11px rgb(0,0,0,0.95);
 
+
     hr {
         height: 200px;
         background-color: ${({ theme }) => theme.colors.background};
@@ -44,6 +69,7 @@ export const ContainerHeader = styled.div`
     img {
         width: 50%;
         max-width: 300px;
+        animation: ${fadeDown} 1s;
     }
 
     p {
@@ -53,6 +79,7 @@ export const ContainerHeader = styled.div`
         font-weight: 500;
         font-size: 1.5rem;
         padding: 15px;
+        animation: ${fadeUp} 2.4s;
     }
 
     &::before {
@@ -145,7 +172,7 @@ export const FavoritesContainer = styled.div`
 `;
 
 export const PokedexContainer = styled.div`
-    background-color: #ffecc0;
+    background: linear-gradient(180deg, ${({ theme }) => theme.colors.light} 0, #ffecc0 25px);
     padding: 5rem 0;
 
     .searchResultAndResetFilter {

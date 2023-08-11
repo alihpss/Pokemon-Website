@@ -23,7 +23,7 @@ export const Container = styled.div`
         height: 10px;
         position: relative;
         background-color: rgba(0,0,0, 0.2);
-        margin-top: 0;
+        margin: 0 0 0 8px;
 
         div {
             margin-top: 0;
