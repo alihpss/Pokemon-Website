@@ -322,7 +322,7 @@ export default function Pokedex() {
         </div>
 
         <div id="pokedexList">
-          <Loader isLoading={isLoading} backgroundColorIsInvisible />
+          <Loader isLoading={isLoading} backgroundColorIsInvisible isPokeballImage />
           {!isLoading && filteredPokemons?.map((pokemon) => (
             <PokemonItems
               key={pokemon.id}

@@ -171,7 +171,7 @@ export default function PokemonInfo() {
 
   return (
     <>
-      <Loader isLoading={isLoading} />
+      <Loader isLoading={isLoading} isPokeballImage />
       {hasError && (
       <ErrorContainer>
         <ModalErrorMessage>
