@@ -12,6 +12,7 @@ export default styled.div`
 
 
     @media (max-width: 768px){
+        display: none;
         height: 80px;
         width: calc(100vw + 1.5px);
         top: min(45vh, 400px);
