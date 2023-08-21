@@ -226,9 +226,10 @@ export const ControllerContainer = styled.div`
         background: none;
         border: none;
         transition: all ease-in-out 0.1s;
+        margin-right: 5px;
 
         &:hover {
-            transform: scale(1.02);
+            transform: scale(1.05);
         }
 
         &:active {
@@ -236,7 +237,7 @@ export const ControllerContainer = styled.div`
         }
 
         img {
-            width: 44px;
+            width: 40px;
         }
     }
 
