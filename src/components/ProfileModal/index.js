@@ -4,6 +4,7 @@ import ReactPortal from '../ReactPortal';
 import { ApresentationContainer, Container, LinksContainer } from './styles';
 
 import closeMenu from '../../assets/images/icons/close-menu.svg';
+import profile from '../../assets/images/personal.jpg';
 import mailIcon from '../../assets/images/icons/envelope.svg';
 import linkedinIcon from '../../assets/images/icons/linkedin.svg';
 import githubIcon from '../../assets/images/icons/github.svg';
@@ -31,7 +32,7 @@ export default function ProfileModal({ onClick, visible }) {
           <img src={closeMenu} alt="Close menu" />
         </button>
         <ApresentationContainer>
-          <img src="/images/ali.png" alt="Author" />
+          <img src={profile} alt="Author" />
           <h3>Ali Haidar Pucci Sidani</h3>
           <p>Front-End Developer</p>
           <p>
